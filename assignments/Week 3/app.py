@@ -1,6 +1,8 @@
 from jinja2 import Template
 import sys
 import csv
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 invalid="not invalid"
@@ -20,7 +22,7 @@ with open("data.csv", "r") as f:
     cntinstr = f.read()
     content = cntinstr.split("\n")
     header=content[0].split(", ")
-    data=[x.split(", ") for x in content[1:]]
+    data=[[col.strip() for col in x.split(", ")] for x in content[1:] if x.strip()]
     reader = csv.DictReader(f)
     f.seek(0)
     for row in reader:
@@ -29,12 +31,13 @@ with open("data.csv", "r") as f:
         if row[" Course id"].strip()==course_id:
             marks.append(int(row[" Marks"].strip()))
 
-plt.hist(marks, bins=10)
-plt.xlabel("Marks")
-plt.ylabel("Frequency")
-plt.title("Distribution of Marks")
-plt.savefig("graph.png")
-plt.close()
+if arg1=="-c" and course_id in courses:
+    plt.hist(marks, bins=10)
+    plt.xlabel("Marks")
+    plt.ylabel("Frequency")
+    plt.title("Distribution of Marks")
+    plt.savefig("graph.png")
+    plt.close()
 
 TEMPLATE = """
 <!DOCTYPE html>
@@ -49,9 +52,9 @@ TEMPLATE = """
         <h1>Student Details</h1>
         <table border="2">
             <tr>
-                <td>{{header[0]}}</td>
-                <td>{{header[1]}}</td>
-                <td>{{header[2]}}</td>
+                <th>{{header[0]}}</td>
+                <th>{{header[1]}}</td>
+                <th>{{header[2]}}</td>
             </tr>
             {% set ns = namespace(total=0) %}
             {% for d in data -%}
@@ -74,8 +77,8 @@ TEMPLATE = """
         <h1>Course Details</h1>{%set ns = namespace(max=0)%}{%set ns3 = namespace(ctr=0)%}{%set ns2 = namespace(total=0)%}{%for d in data -%}{% if d[1]|int==course_id|int -%}{% set ns2.total = ns2.total + d[2]|int %}{% set ns3.ctr = ns3.ctr + 1 %}{%if (d[2]|int > ns.max)%}{%set ns.max=d[2]|int%}{%endif -%}{%endif -%}{%endfor -%}
         <table border="2">
             <tr>
-                <td>Average Marks</td>
-                <td>Maximum Marks</td>
+                <th>Average Marks</td>
+                <th>Maximum Marks</td>
             </tr>
             <tr>
                 <td>{{ns2.total/ns3.ctr}}</td>
