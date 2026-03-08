@@ -31,7 +31,7 @@ with open("data.csv", "r") as f:
         if row[" Course id"].strip()==course_id:
             marks.append(int(row[" Marks"].strip()))
 
-if arg1=="-c" and course_id in courses:~
+if arg1=="-c" and course_id in courses:
     plt.hist(marks, bins=10)
     plt.xlabel("Marks")
     plt.ylabel("Frequency")
