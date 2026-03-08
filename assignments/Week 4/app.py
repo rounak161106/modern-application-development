@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-import matplotlib
+import matplotlib.pyplot as plt
 
 with open("data.csv","r") as f:
     data = f.read().strip().split("\n")[1:]
@@ -32,9 +32,17 @@ def index():
             else:
                 return render_template("error.html")
         elif request.form.get("ID")=="course_id":
-            data=[i for i in row if i[1].strip()==id_value]
             if request.form["id_value"] in courses:
-                return render_template("courses.html", data=data)
+                data=[i for i in row if i[1].strip()==id_value]
+                max=0
+                sum=0
+                for i in data:
+                    sum+=int(i[2].strip())
+                    if int(i[2].strip())>=max:
+                        max=int(i[2].strip())
+                    
+                
+                return render_template("courses.html", avg=sum/len(data), max=max)
             else:
                 return render_template("error.html")
             
