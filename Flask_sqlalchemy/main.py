@@ -36,7 +36,7 @@ def main():
 @app.route("/article_by/<user_name>")
 def article_by(user_name):
     articles = Article.query.filter(Article.authors.any(name = user_name))
-    return render_template("article_by.html", articles = articles)
+    return render_template("article_by.html", articles = articles, author = user_name)
 
 if __name__ == "__main__":
     app.run(debug=True)

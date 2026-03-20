@@ -29,7 +29,7 @@
                             <p class="mb-1">
                                 <strong>Written by:</strong>
                                 {% for author in i.authors %}
-                                    {{ author.name }}{% if not loop.last %}, {% endif %}
+                                    <a href="/article_by/{{ author.name }}">{{ author.name }}</a>{% if not loop.last %}, {% endif %}
                                 {% endfor %}
                             </p>
 
