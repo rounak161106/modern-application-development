@@ -43,6 +43,11 @@ def article_by(user_name):
 def create():
     return render_template("create.html")
 
+@app.route("/create_author", methods=["GET"])
+def create_author():
+    return render_template("create_author.html")
+
+
 @app.route("/add", methods=["POST"])
 def add():
     author_id = request.form.get("author")
@@ -64,6 +69,15 @@ def add():
     db.session.add(new_article)
     db.session.commit()
 
+    return redirect("/")
+
+@app.route("/add_author", methods=["POST"])
+def add_author():
+    name = request.form.get("author")
+    email = request.form.get("title")
+    new_author = Author(name=name, email=email)
+    db.session.add(new_author)
+    db.session.commit()
     return redirect("/")
 
 
