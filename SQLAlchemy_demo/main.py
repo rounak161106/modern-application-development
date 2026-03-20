@@ -34,3 +34,11 @@ if __name__ == "__main__":
     with engine.connect() as conn:
         for row in conn.execute(stmt):
             print(row)
+
+    # find the author name who are related with article id 1
+    with Session(engine) as session:
+        articles = session.query(Article).filter(Article.article_id == 1).all()
+        for article in articles:
+            print(article.title)
+            for author in article.authors:
+                print(author.name)
