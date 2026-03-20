@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import Session
 
 import os
 path = os.path.abspath(os.path.dirname(__file__))
@@ -37,6 +38,34 @@ def main():
 def article_by(user_name):
     articles = Article.query.filter(Article.authors.any(name = user_name))
     return render_template("article_by.html", articles = articles, author = user_name)
+
+@app.route("/create", methods=["GET"])
+def create():
+    return render_template("create.html")
+
+@app.route("/add", methods=["POST"])
+def add():
+    author_id = request.form.get("author")
+    title = request.form.get("title")
+    content = request.form.get("content")
+    # 1. Get author from DB
+    author = Author.query.get(author_id)
+
+    if not author:
+        return "Author not found"
+
+    # 2. Create new article
+    new_article = Article(title=title, content=content)
+
+    # 3. Link author (this auto handles article_authors table)
+    new_article.authors.append(author)
+
+    # 4. Save to DB
+    db.session.add(new_article)
+    db.session.commit()
+
+    return redirect("/")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
