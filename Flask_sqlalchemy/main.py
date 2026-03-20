@@ -73,8 +73,8 @@ def add():
 
 @app.route("/add_author", methods=["POST"])
 def add_author():
-    name = request.form.get("author")
-    email = request.form.get("title")
+    name = request.form.get("name")
+    email = request.form.get("email")
     new_author = Author(name=name, email=email)
     db.session.add(new_author)
     db.session.commit()
@@ -82,4 +82,4 @@ def add_author():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
