@@ -17,9 +17,24 @@
                 <div class="col-md-8">
                     {% for i in articles %}
                          <div>
-                            {{i.title }}
-                            {{i.content }}
+                            <h4> {{i.title }} </h4>
+                            <p>
+                                <div>
+                                Written by :
+                                {% for author in i.authors -%}
+                                    {% if not loop.last %}
+                                        {{author["name"] }},
+                                    {% else %}
+                                        {{author["name"] }}
+                                    {% endif %}
+                                {%- endfor %}
+                                </div>
+                            </p>
+                            <div>
+                                <p>Content: {{i.content }}</p>
+                            </div>
                          </div>
+                     <hr>
                     {% endfor %}
                 </div>
 
