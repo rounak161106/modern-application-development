@@ -6,38 +6,43 @@
         <title>Document</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     </head>
-
+    <style>
+        ol li::marker {
+            font-weight: bold;
+            font-size: 22px;
+            color: #0d6efd; /* bootstrap blue */
+        }
+     </style>
     <body>
         <div class="container">
-            <div class="jumbotron">
-                <h1 class="header-4">Header Section Header</h1>
+            <div class="" >
+                <h1 class="header-4" style="text-decoration: underline;"> All Articles   </h1><br>
             </div>
 
             <div class="row">
                 <div class="col-md-8">
+                <ol class="ps-3">
                     {% for i in articles %}
-                         <div>
-                            <h4> {{i.title }} </h4>
-                            <p>
-                                <div>
-                                Written by :
-                                {% for author in i.authors -%}
-                                    {% if not loop.last %}
-                                        {{author["name"] }},
-                                    {% else %}
-                                        {{author["name"] }}
-                                    {% endif %}
-                                {%- endfor %}
-                                </div>
-                            </p>
-                            <div>
-                                <p>Content: {{i.content }}</p>
-                            </div>
-                         </div>
-                     <hr>
-                    {% endfor %}
-                </div>
+                        <li class="mb-4">
+                            <h4 class="fw-bold">{{ i.title }}</h4>
 
+                            <p class="mb-1">
+                                <strong>Written by:</strong>
+                                {% for author in i.authors %}
+                                    {{ author.name }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+
+                            <p>
+                                <strong>Content:</strong> {{ i.content }}
+                            </p>
+
+                            <hr>
+                        </li>
+                    {% endfor %}
+                </ol>
+                </div>
+            
                 <div class="col-md-4">Sidebar</div>
             </div>
         </div>
