@@ -26,4 +26,11 @@ class ArticleAuthor(Base):
     author_id = Column(Integer, ForeignKey("authors.author_id"), primary_key=True, nullable=False)
     article_id = Column(Integer, ForeignKey("articles.article_id"), primary_key=True, nullable=False)
 
-engine = create_engine("sqlite:///testdb.sqlite3")
+engine = create_engine("sqlite:///./SQLAlchemy_demo/testdb.sqlite3")
+
+if __name__ == "__main__":
+    stmt = select(Author)
+    print(stmt)
+    with engine.connect() as conn:
+        for row in conn.execute(stmt):
+            print(row)
