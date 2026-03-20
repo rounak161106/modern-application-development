@@ -47,16 +47,36 @@ engine = create_engine("sqlite:///./SQLAlchemy_demo/testdb.sqlite3")
 
 
 # Transaction Handling
+# if __name__ == "__main__":
+#     with Session(engine, autoflush=False) as session:
+#         session.begin()
+#         try:
+#             article = Article(title = "Dummy article", content = "This is dummy content")
+#             session.add(article)
+#             session.flush()
+#             # raise Exception("Dummy error")
+#             article_author = ArticleAuthor(author_id = 1, article_id = article.article_id)
+#             session.add(article_author)
+#         except:
+#             print("Rolling Back")
+#             session.rollback()
+#             raise
+#         else:
+#             print("Commit")
+#             session.commit()
+
+
+# using the same thing using relationship
 if __name__ == "__main__":
     with Session(engine, autoflush=False) as session:
         session.begin()
         try:
-            article = Article(title = "Dummy article", content = "This is dummy content")
+            author1 = session.query(Author).filter(Author.name == "Rounak").one()
+            author2 = session.query(Author).filter(Author.name == "Rajesh").one()
+            article = Article(title = "This is new content using relationship", content = "Hello")
+            article.authors.append(author1)
+            article.authors.append(author2)
             session.add(article)
-            session.flush()
-            # raise Exception("Dummy error")
-            article_author = ArticleAuthor(author_id = 1, article_id = article.article_id)
-            session.add(article_author)
         except:
             print("Rolling Back")
             session.rollback()
