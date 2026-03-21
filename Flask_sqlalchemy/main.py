@@ -29,57 +29,57 @@ class ArticleAuthor(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey("authors.author_id"), primary_key=True, nullable=False)
     article_id = db.Column(db.Integer, db.ForeignKey("articles.article_id"), primary_key=True, nullable=False)
 
-@app.route('/')
-def main():
-    articles = Article.query.all() #or db.session.query(Article).all()
-    return render_template("index.html", articles= articles)
+# @app.route('/')
+# def main():
+#     articles = Article.query.all() #or db.session.query(Article).all()
+#     return render_template("index.html", articles= articles)
 
-@app.route("/article_by/<user_name>")
-def article_by(user_name):
-    articles = Article.query.filter(Article.authors.any(name = user_name))
-    return render_template("article_by.html", articles = articles, author = user_name)
+# @app.route("/article_by/<user_name>")
+# def article_by(user_name):
+#     articles = Article.query.filter(Article.authors.any(name = user_name))
+#     return render_template("article_by.html", articles = articles, author = user_name)
 
-@app.route("/create", methods=["GET"])
-def create():
-    return render_template("create.html")
+# @app.route("/create", methods=["GET"])
+# def create():
+#     return render_template("create.html")
 
-@app.route("/create_author", methods=["GET"])
-def create_author():
-    return render_template("create_author.html")
-
-
-@app.route("/add", methods=["POST"])
-def add():
-    author_id = request.form.get("author")
-    title = request.form.get("title")
-    content = request.form.get("content")
-    # 1. Get author from DB
-    author = Author.query.get(author_id)
-
-    if not author:
-        return "Author not found"
-
-    # 2. Create new article
-    new_article = Article(title=title, content=content)
-
-    # 3. Link author (this auto handles article_authors table)
-    new_article.authors.append(author)
-
-    # 4. Save to DB
-    db.session.add(new_article)
-    db.session.commit()
-
-    return redirect("/")
-
-@app.route("/add_author", methods=["POST"])
-def add_author():
-    name = request.form.get("name")
-    email = request.form.get("email")
-    new_author = Author(name=name, email=email)
-    db.session.add(new_author)
-    db.session.commit()
-    return redirect("/")
+# @app.route("/create_author", methods=["GET"])
+# def create_author():
+#     return render_template("create_author.html")
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+# @app.route("/add", methods=["POST"])
+# def add():
+#     author_id = request.form.get("author")
+#     title = request.form.get("title")
+#     content = request.form.get("content")
+#     # 1. Get author from DB
+#     author = Author.query.get(author_id)
+
+#     if not author:
+#         return "Author not found"
+
+#     # 2. Create new article
+#     new_article = Article(title=title, content=content)
+
+#     # 3. Link author (this auto handles article_authors table)
+#     new_article.authors.append(author)
+
+#     # 4. Save to DB
+#     db.session.add(new_article)
+#     db.session.commit()
+
+#     return redirect("/")
+
+# @app.route("/add_author", methods=["POST"])
+# def add_author():
+#     name = request.form.get("name")
+#     email = request.form.get("email")
+#     new_author = Author(name=name, email=email)
+#     db.session.add(new_author)
+#     db.session.commit()
+#     return redirect("/")
+
+
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=5000, debug=True).

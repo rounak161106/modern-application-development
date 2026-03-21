@@ -30,6 +30,15 @@ class Enrollments(db.Model):
     estudent_id = db.Column(db.Integer, db.ForeignKey("student.student_id"), nullable=False)
     ecourse_id = db.Column(db.Integer, db.ForeignKey("course.course_id"), nullable=False)
 
+print(Student.student_id)
+@app.route('/')
+def home():
+    students = Student.query.all()
+    if not students:
+        return render_template("no_students.html")
+    else:
+        return render_template("home.html")
 
-@app.route
-
+@app.route('/student/create')
+def create():
+    return render_template("create.html")

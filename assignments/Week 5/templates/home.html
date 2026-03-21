@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Students list</h1>
+    <table id = "all-students" border="1" cellpadding="8">
+        <tr>
+            <th>SNo</th>
+            <th>Roll Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Actions</th>
+        </tr>
+
+        <tr>
+            <td>s_no_1</td>
+            <td><a href="/student/<int:student_id>">roll_number_1</a></td>
+            <td>first_name_1</td>
+            <td>last_name_1</td>
+            <td>
+                <a href="/student/<int:student_id>/update" type="button">Update</a>
+                <a href="/student/<int:student_id>/delete" type="button">Delete</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
