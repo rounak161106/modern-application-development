@@ -42,14 +42,11 @@ def home():
 def create():
     if request.method=="GET":
         return render_template("create.html")
-    
-    roll = request.form.get("roll")
-    f_name = request.form.get("f_name")
-    l_name = request.form.get("l_name")
-
-    print(roll)
-    print(f_name )
-    print(l_name )
+    if request.method=="POST":
+        roll = request.form.get("roll")
+        f_name = request.form.get("f_name")
+        l_name = request.form.get("l_name")
+        
 
 if __name__ == "__main__":
     app.run(debug=True)
