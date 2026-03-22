@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Role</title>
+</head>
+<body>
+    <h2>Edit role</h2>
+    <form action="/edit_role/{{this_role.id}}" method="POST">
+        <div>
+            <label for="role">Role Name:
+                <input type="text" name="role" id="role" value="{{this_role.role_name}}">
+            </label>
+        </div><br>
+        <div><input type="submit" value="Edit role" name="role" id="role"></div>
+    </form>
+</body>
+</html>

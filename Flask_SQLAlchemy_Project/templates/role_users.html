@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Users</title>
+</head>
+<body>
+    <h2>Users who are {{role_obj.role_name}}</h2>
+    {% if users %}
+    <table border="2" cellpadding="6">
+        <tr>
+            <th>Serial no.</th>
+            <th>Users</th>
+            <th>Password</th>
+        </tr>
+        {% for i in users%}
+            <tr>
+                <th>{{loop.index}}</th>
+                <th>{{i.name}}</th>
+                <th>{{i.password}}</th>
+            </tr>
+        {% endfor %}
+    </table><br>
+    {%else%}
+    <p>No users present for this role</p>
+    {%endif%}
+    <a href="/">Go Home</a>
+</body>
+</html>

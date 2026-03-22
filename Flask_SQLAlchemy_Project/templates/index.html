@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Roles</title>
+</head>
+<body>
+    <h1>Available Roles</h1>
+    <table border="2" cellpadding="6">
+        <tr>
+            <th>Serial no.</th>
+            <th>Role id</th>
+            <th>Role name</th>
+            <th>Actions</th>
+        </tr>
+        {% for role in roles %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{role.id}}</td>
+                <td><a href="/users/{{role.id}}">{{role.role_name}}</a></td>
+                <td>
+                    <a href="/edit_role/{{role.id}}">Edit</a>
+                    <a href="/delete_role/{{role.id}}">delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table><br>
+    <a href="/create_role"><button>Create Role</button></a>
+</body>
+</html>
