@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Students list</h1>
+    {% if students %}
     <table id = "all-students" border="1" cellpadding="8">
         <tr>
             <th>SNo</th>
@@ -15,17 +16,22 @@
             <th>Last Name</th>
             <th>Actions</th>
         </tr>
-
+        {% for student in students %}
         <tr>
-            <td>s_no_1</td>
-            <td><a href="/student/<int:student_id>">roll_number_1</a></td>
-            <td>first_name_1</td>
-            <td>last_name_1</td>
+            <td>{{loop.index}}</td>
+            <td><a href="/student/{{student.student_id}}">{{student.roll_number}}</a></td>
+            <td>{{student.first_name}}</td>
+            <td>{{student.last_name}}</td>
             <td>
-                <a href="/student/<int:student_id>/update" type="button">Update</a>
-                <a href="/student/<int:student_id>/delete" type="button">Delete</a>
+                <a href="/student/{{student.student_id}}" type="button">Update</a>
+                <a href="/student/{{student.student_id}}" type="button">Delete</a>
             </td>
         </tr>
+        {% endfor %}
     </table>
+    {% else %}
+    <p>No student found. Add the students now!</p>
+    {% endif %}
+    <a href="/student/create">+ Add student</a>
 </body>
 </html>
