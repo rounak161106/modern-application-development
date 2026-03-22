@@ -47,13 +47,26 @@ def create():
         if roll in roll_nos:
             return render_template("exists.html")
         new = Student(roll_number=roll, first_name=f_name, last_name=l_name)
-        print(courses)
         courses_obj = [Course.query.get(int(i[-1])) for i in courses]
-        print(courses_obj)
         new.courses.extend(courses_obj)
         db.session.add(new)
         db.session.commit()
         return redirect('/')
+
+@app.route('/student/<int:student_id>/update', methods=["GET", "POST"])
+def update(student_id):
+    this_student = Student.query.get(student_id)
+    if request.method=="GET":
+        return render_template("update.html", student_id=student_id, this_student=this_student)
+    f_name = request.form.get("f_name")
+    l_name = request.form.get("l_name")
+    courses = request.form.getlist("courses")
+    this_student = Student.query.get(student_id)
+    this_student.first_name=f_name
+    this_student.last_name=l_name
+    courses_obj = [Course.query.get(int(i[-1])) for i in courses]
+    this_student.courses=courses_obj
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run(debug=True)
