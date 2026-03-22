@@ -66,7 +66,21 @@ def update(student_id):
     this_student.last_name=l_name
     courses_obj = [Course.query.get(int(i[-1])) for i in courses]
     this_student.courses=courses_obj
+    db.session.commit()
     return redirect('/')
+
+@app.route('/student/<int:student_id>/delete')
+def delete(student_id):
+    student = Student.query.get(student_id)
+    enrolls = Enrollments.query.filter_by(estudent_id=student_id).all()
+    print(enrolls)
+    db.session.delete(student)
+    db.session.commit()
+    return redirect('/')
+
+@app.route('/student/<int:student_id>')
+def show_details(student_id):
+    return render_template("show_details.html", stud=Student.query.get(student_id))
 
 if __name__ == "__main__":
     app.run(debug=True)
