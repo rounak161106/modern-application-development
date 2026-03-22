@@ -43,9 +43,16 @@ def create():
         f_name = request.form.get("f_name")
         l_name = request.form.get("l_name")
         courses = request.form.getlist("courses")
+        roll_nos = [i.roll_number for i in Student.query.all()]
+        if roll in roll_nos:
+            return render_template("exists.html")
         new = Student(roll_number=roll, first_name=f_name, last_name=l_name)
+        print(courses)
         courses_obj = [Course.query.get(int(i[-1])) for i in courses]
-        new.courses.append(courses_obj)
+        print(courses_obj)
+        new.courses.extend(courses_obj)
+        db.session.add(new)
+        db.session.commit()
         return redirect('/')
 
 if __name__ == "__main__":
