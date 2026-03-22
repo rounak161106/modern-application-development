@@ -42,7 +42,11 @@ def create():
         roll = request.form.get("roll")
         f_name = request.form.get("f_name")
         l_name = request.form.get("l_name")
-        
+        courses = request.form.getlist("courses")
+        new = Student(roll_number=roll, first_name=f_name, last_name=l_name)
+        courses_obj = [Course.query.get(int(i[-1])) for i in courses]
+        new.courses.append(courses_obj)
+        return redirect('/')
 
 if __name__ == "__main__":
     app.run(debug=True)
