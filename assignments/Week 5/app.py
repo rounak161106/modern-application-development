@@ -56,8 +56,10 @@ def create():
 @app.route('/student/<int:student_id>/update', methods=["GET", "POST"])
 def update(student_id):
     this_student = Student.query.get(student_id)
+    enrolls_obj = this_student.courses
+    enrolls = [i.course_id for i in enrolls_obj]
     if request.method=="GET":
-        return render_template("update.html", student_id=student_id, this_student=this_student)
+        return render_template("update.html", student_id=student_id, this_student=this_student, enrolls=enrolls)
     f_name = request.form.get("f_name")
     l_name = request.form.get("l_name")
     courses = request.form.getlist("courses")
@@ -83,4 +85,4 @@ def show_details(student_id):
     return render_template("show_details.html", stud=Student.query.get(student_id))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

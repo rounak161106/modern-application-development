@@ -21,13 +21,13 @@
         </div><br>
         <div>
             <label>Select Courses: </label>
-            <input type="checkbox" name="courses" value="course_1" />
+            <input type="checkbox" name="courses" value="course_1" {% if 1 in enrolls %}checked {% endif %}/>
             <label>MAD I</label>
-            <input type="checkbox" name="courses" value="course_2" />
+            <input type="checkbox" name="courses" value="course_2" {% if 2 in enrolls %}checked {% endif %}/>
             <label>DBMS</label>
-            <input type="checkbox" name="courses" value="course_3" />
+            <input type="checkbox" name="courses" value="course_3" {% if 3 in enrolls %}checked {% endif %}/>
             <label>PDSA</label>
-            <input type="checkbox" name="courses" value="course_4" />
+            <input type="checkbox" name="courses" value="course_4" {% if 4 in enrolls %}checked {% endif %}/>
             <label>BDM</label>
         </div><br>
         <div>

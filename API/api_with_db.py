@@ -41,5 +41,12 @@ def get_data():
 
     return my_data
 
+@app.get('/user/<username>')
+def user(username):
+    this_user = User.query.filter(User.name == username).first()
+    if not this_user:
+        return {"message": "not found"},404
+    return {"name": this_user.name, "pass":this_user.password}
+
 if __name__ == "__main__":
     app.run(debug=True)
