@@ -26,7 +26,7 @@ def get_name(name):
 def add_name():
     new_name = request.json
     data.append(new_name)
-    return {"message":"Student added successfully"}, 201    #sends the response with 201 status code meaning post is successful and new data is added but the data addes is not persistent and will only be added till that server is running
+    return {"message":"Student added successfully"}, 201    #sends the response with 201 status code meaning post is successful and new data is added but the data added is not persistent and will only be added till that server is running
 
 
 
