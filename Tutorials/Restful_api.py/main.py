@@ -34,10 +34,12 @@ class UserApi(Resource):
     def get(self, username):
         print(username)
         user_obj = Author.query.filter_by(name = username).first()
-        return {
-            "username" : user_obj.name,
-            "email" : user_obj.email
-            }, 200
+        if user_obj:
+            return {
+                "username" : user_obj.name,
+                "email" : user_obj.email
+                }, 200
+        return {"Message" : "User not found"}, 404
 
     def put(self, username):
         pass
