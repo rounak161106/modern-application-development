@@ -221,8 +221,21 @@ class EnrollmentApi(Resource):
         else:
             raise InternalServerError(status_code=500)
 
-    def post(self):
-        pass
+    def post(self, student_id):
+        studentexist = Student.query.filter_by(student_id = student_id).all()
+        if not studentexist:
+            return "Student not found", 404
+        data = request.json
+        course = Course.query.filter_by(course_id = data["course_id"]).first()
+        if not course:
+            raise EmptyError(status_code=400, error_code="ENROLLMENT001", error_message="Course does not exist")
+        if course:
+            new = Enrollment(student_id = student_id, course_id = data["course_id"])
+            db.session.add(new)
+            db.session.commit()
+            return [{"enrollment_id": new.enrollment_id,"student_id": new.student_id,"course_id": new.course_id}],201
+        else:
+            raise InternalServerError(status_code=500)
 
     def delete(self):
         pass
