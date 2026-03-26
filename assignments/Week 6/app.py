@@ -15,11 +15,10 @@ class InternalServerError(HTTPException):
 class ExistingError(HTTPException):
     def __init__(self, status_code):
         self.response = make_response('course_code already exist', status_code)
-class EmptyCourseCodeError(HTTPException):
-    def __init__(self, status_code, error_code, error_message):
-        message = {"error_code" : error_code, "error_message" : error_message}
-        self.response = make_response(json.dumps(message), status_code)
-class EmptyCourseNameError(HTTPException):
+class CourseNotFound(HTTPException):
+    def __init__(self, status_code):
+        self.response = make_response('Course not found', status_code)
+class EmptyCourseError(HTTPException):
     def __init__(self, status_code, error_code, error_message):
         message = {"error_code" : error_code, "error_message" : error_message}
         self.response = make_response(json.dumps(message), status_code)
@@ -77,10 +76,10 @@ class CourseApi(Resource):
         course_code_list = Course.query.all()
         course_codes = [i.course_code for i in course_code_list]
         if not data["course_code"]:
-            raise EmptyCourseCodeError(status_code=400, error_code="COURSE002", error_message="Course Code is required")
+            raise EmptyCourseError(status_code=400, error_code="COURSE002", error_message="Course Code is required")
         
         if not data["course_name"]:
-            raise EmptyCourseNameError(status_code=400, error_code="COURSE001", error_message="Course Name is required")
+            raise EmptyCourseError(status_code=400, error_code="COURSE001", error_message="Course Name is required")
         
         if data["course_code"] in course_codes:
             raise ExistingError(status_code=409)
@@ -93,8 +92,19 @@ class CourseApi(Resource):
         else:
             raise InternalServerError(status_code=500)
 
+    @marshal_with(course_output_fields)
     def put(self, course_id):
-        pass    
+        data = request.json
+        existing = Course.query.filter(Course.course_id == course_id).first()
+        if existing:
+            existing.course_name = data["course_name"]
+            existing.course_code = data["course_code"]
+            existing.course_description = data["course_description"]
+            db.session.commit()
+            return course_output_fields, 
+        else:
+            raise CourseNotFound(status_code=404)
+
     
     def delete(self, course_id):
         pass
