@@ -1,6 +1,17 @@
-from flask_restful import Resource, Api
-from flask import Flask
+from flask_restful import Resource, Api, fields, marshal_with
+from flask import Flask, make_response
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.exceptions import HTTPException    #to handle exceptions
+
+class NotFoundError(HTTPException):
+    def __init__(self, status_code):
+        self.response = make_response('', status_code)
+
+output_fields = {
+    "author_id" : fields.Integer, 
+    "name" : fields.String, 
+    "email" : fields.String
+} #write all the fields which you want to return as a response
 
 app = Flask(__name__)
 
@@ -31,15 +42,15 @@ class ArticleAuthor(db.Model):
     article_id = db.Column(db.Integer, db.ForeignKey("articles.article_id"), primary_key=True, nullable=False)
 
 class UserApi(Resource):
+    @marshal_with(output_fields)
     def get(self, username):
         print(username)
         user_obj = Author.query.filter_by(name = username).first()
         if user_obj:
-            return {
-                "username" : user_obj.name,
-                "email" : user_obj.email
-                }, 200
-        return {"Message" : "User not found"}, 404
+            return user_obj
+        else:
+            # return {"Message" : "User not found"}, 404
+            raise NotFoundError(status_code=404)
 
     def put(self, username):
         pass
