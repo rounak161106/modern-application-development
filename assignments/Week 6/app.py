@@ -3,15 +3,26 @@ from flask import Flask, request, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api, Resource, marshal_with, fields
 from flask_cors import CORS
+import json
 from werkzeug.exceptions import HTTPException    #to handle exceptions
 
 class NotFoundError(HTTPException):
     def __init__(self, status_code):
         self.response = make_response('Course not found', status_code)
-
 class InternalServerError(HTTPException):
     def __init__(self, status_code):
         self.response = make_response('Internal Server Error', status_code)
+class ExistingError(HTTPException):
+    def __init__(self, status_code):
+        self.response = make_response('course_code already exist', status_code)
+class EmptyCourseCodeError(HTTPException):
+    def __init__(self, status_code, error_code, error_message):
+        message = {"error_code" : error_code, "error_message" : error_message}
+        self.response = make_response(json.dumps(message), status_code)
+class EmptyCourseNameError(HTTPException):
+    def __init__(self, status_code, error_code, error_message):
+        message = {"error_code" : error_code, "error_message" : error_message}
+        self.response = make_response(json.dumps(message), status_code)
 
 #<====================Configuration and setup================================================>
 app = Flask(__name__)
@@ -65,12 +76,22 @@ class CourseApi(Resource):
         data = request.json
         course_code_list = Course.query.all()
         course_codes = [i.course_code for i in course_code_list]
-        if 
+        if not data["course_code"]:
+            raise EmptyCourseCodeError(status_code=400, error_code="COURSE002", error_message="Course Code is required")
+        
+        if not data["course_name"]:
+            raise EmptyCourseNameError(status_code=400, error_code="COURSE001", error_message="Course Name is required")
+        
+        if data["course_code"] in course_codes:
+            raise ExistingError(status_code=409)
+        
         if data["course_code"] not in course_codes:
             new_course = Course(course_code = data["course_code"], course_name = data["course_name"], course_description = data["course_description"])
             db.session.add(new_course)
             db.session.commit()
             return new_course, 201
+        else:
+            raise InternalServerError(status_code=500)
 
     def put(self, course_id):
         pass    
