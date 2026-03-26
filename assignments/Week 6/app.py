@@ -1,7 +1,17 @@
 #<=============================Required imports==============================================>
-from flask import Flask, request
+from flask import Flask, request, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api, Resource, marshal_with, fields
+from flask_cors import CORS
+from werkzeug.exceptions import HTTPException    #to handle exceptions
+
+class NotFoundError(HTTPException):
+    def __init__(self, status_code):
+        self.response = make_response('Course not found', status_code)
+
+class InternalServerError(HTTPException):
+    def __init__(self, status_code):
+        self.response = make_response('Internal Server Error', status_code)
 
 #<====================Configuration and setup================================================>
 app = Flask(__name__)
@@ -9,6 +19,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///api_database.sqlite3"
 app.app_context().push()
 db = SQLAlchemy(app)
 api = Api(app)
+CORS(app)
 
 #<==========================defining models for the app=======================================>
 class Course(db.Model):
@@ -31,7 +42,7 @@ class Enrollment(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey(Course.course_id),nullable = False)
 
 #<===========================Apis handling=================================================>
-output_fields = {
+course_output_fields = {
     "course_id": fields.Integer,
     "course_name": fields.String,
     "course_code": fields.String,
@@ -39,10 +50,15 @@ output_fields = {
 }
 
 class CourseApi(Resource):
-    @marshal_with(output_fields)
+    @marshal_with(course_output_fields)
     def get(self, course_id):
         course_obj = Course.query.get(course_id)
-        return course_obj
+        if course_obj:
+            return course_obj, 200
+        elif not course_obj :
+            raise NotFoundError(status_code=404)
+        else:
+            raise InternalServerError(status_code=500)
         
 
     def push(self):
