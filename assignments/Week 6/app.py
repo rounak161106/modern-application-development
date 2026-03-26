@@ -207,27 +207,24 @@ class StudentApi(Resource):
             raise InternalServerError(status_code=500)
 
 
-enroll_output_fields = {
-    "course_id": fields.Integer,
-    "course_name": fields.String,
-    "course_code": fields.String,
-    "course_description": fields.String
-}
 class EnrollmentApi(Resource):
-    @marshal_with(enroll_output_fields)
     def get(self, student_id):
-        student_obj = Student.query.get(student_id)
-        if student_obj:
-            return student_obj, 200
-        elif not student_obj :
-            raise NotFoundError(type = "Student", status_code=404)
+        existing = Enrollment.query.filter_by(student_id = student_id).all()
+        studentexist = Student.query.filter_by(student_id = student_id).all()
+        if not studentexist:
+            raise EmptyError(status_code=400, error_code="ENROLLMENT002", error_message="Student does not exist")
+        if existing:
+            enrolls = [{"enrollment_id": i.enrollment_id,"student_id": i.student_id,"course_id": i.course_id} for i in existing]
+            if enrolls:
+                return enrolls, 200
+            return "Student is not enrolled in any course", 404
         else:
             raise InternalServerError(status_code=500)
 
-    def get(self):
+    def post(self):
         pass
 
-    def get(self):
+    def delete(self):
         pass
 
 api.add_resource(CourseApi, "/api/course/<int:course_id>", "/api/course")
