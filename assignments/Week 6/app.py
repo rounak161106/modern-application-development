@@ -207,9 +207,32 @@ class StudentApi(Resource):
             raise InternalServerError(status_code=500)
 
 
+enroll_output_fields = {
+    "course_id": fields.Integer,
+    "course_name": fields.String,
+    "course_code": fields.String,
+    "course_description": fields.String
+}
+class EnrollmentApi(Resource):
+    @marshal_with(enroll_output_fields)
+    def get(self, student_id):
+        student_obj = Student.query.get(student_id)
+        if student_obj:
+            return student_obj, 200
+        elif not student_obj :
+            raise NotFoundError(type = "Student", status_code=404)
+        else:
+            raise InternalServerError(status_code=500)
+
+    def get(self):
+        pass
+
+    def get(self):
+        pass
+
 api.add_resource(CourseApi, "/api/course/<int:course_id>", "/api/course")
 api.add_resource(StudentApi, "/api/student/<int:student_id>", "/api/student")
-
+api.add_resource(EnrollmentApi, '/api/student/<int:student_id>/course')
 
 if __name__ == "__main__":
     app.run(debug=True)
