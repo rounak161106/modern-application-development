@@ -237,12 +237,27 @@ class EnrollmentApi(Resource):
         else:
             raise InternalServerError(status_code=500)
 
-    def delete(self):
-        pass
-
+    def delete(self, student_id, course_id):
+        stu_exist = Student.query.filter_by(student_id = student_id).first()
+        course_exist = Course.query.filter_by(course_id = course_id).first()
+        if not stu_exist:
+            raise EmptyError(status_code=400, error_code="ENROLLMENT002", error_message="Student does not exist")
+        if not course_exist:
+            raise EmptyError(status_code=400, error_code="ENROLLMENT001", error_message="Course does not exist")
+        enrolls = Enrollment.query.filter(Enrollment.student_id == student_id, Enrollment.course_id == course_id).first()
+        if not enrolls:
+            return "Enrollment for the student not found", 404
+        elif enrolls:
+            db.session.delete(enrolls)
+            db.session.commit()
+            return "Successfully deleted", 200
+        else:
+            raise InternalServerError(status_code=500)
+            
+    
 api.add_resource(CourseApi, "/api/course/<int:course_id>", "/api/course")
 api.add_resource(StudentApi, "/api/student/<int:student_id>", "/api/student")
-api.add_resource(EnrollmentApi, '/api/student/<int:student_id>/course')
+api.add_resource(EnrollmentApi, '/api/student/<int:student_id>/course', '/api/student/<int:student_id>/course/<int:course_id>')
 
 if __name__ == "__main__":
     app.run(debug=True)
