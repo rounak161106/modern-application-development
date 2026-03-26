@@ -7,21 +7,22 @@ import json
 from werkzeug.exceptions import HTTPException    #to handle exceptions
 
 class NotFoundError(HTTPException):
-    def __init__(self, status_code):
-        self.response = make_response('Course not found', status_code)
+    def __init__(self, status_code, type):
+        self.response = make_response(f'{type} not found', status_code)
 class InternalServerError(HTTPException):
     def __init__(self, status_code):
         self.response = make_response('Internal Server Error', status_code)
 class ExistingError(HTTPException):
     def __init__(self, status_code):
         self.response = make_response('course_code already exist', status_code)
-class CourseNotFound(HTTPException):
-    def __init__(self, status_code):
-        self.response = make_response('Course not found', status_code)
 class EmptyCourseError(HTTPException):
     def __init__(self, status_code, error_code, error_message):
         message = {"error_code" : error_code, "error_message" : error_message}
         self.response = make_response(json.dumps(message), status_code)
+class UniqueError(HTTPException):
+    def __init__(self, status_code, type):
+        self.response = make_response('{type} already exist', status_code)
+        
 
 #<====================Configuration and setup================================================>
 app = Flask(__name__)
@@ -52,6 +53,8 @@ class Enrollment(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey(Course.course_id),nullable = False)
 
 #<===========================Apis handling=================================================>
+
+#<===========================Handling Course related requests===========================================>
 course_output_fields = {
     "course_id": fields.Integer,
     "course_name": fields.String,
@@ -66,7 +69,7 @@ class CourseApi(Resource):
         if course_obj:
             return course_obj, 200
         elif not course_obj :
-            raise NotFoundError(status_code=404)
+            raise NotFoundError(type="Course",status_code=404)
         else:
             raise InternalServerError(status_code=500)
         
@@ -96,20 +99,114 @@ class CourseApi(Resource):
     def put(self, course_id):
         data = request.json
         existing = Course.query.filter(Course.course_id == course_id).first()
+        if not data["course_code"]:
+            raise EmptyCourseError(status_code=400, error_code="COURSE002", error_message="Course Code is required")
+        
+        if not data["course_name"]:
+            raise EmptyCourseError(status_code=400, error_code="COURSE001", error_message="Course Name is required")
         if existing:
+            course_code_existing = Course.query.filter(Course.course_code == data["course_code"]).first()
+            if course_code_existing:
+                return "Course Code already exists.", 400
             existing.course_name = data["course_name"]
             existing.course_code = data["course_code"]
             existing.course_description = data["course_description"]
             db.session.commit()
-            return course_output_fields, 
+            return existing, 200
+        elif not existing:
+            raise NotFoundError(type="Course",status_code=404)
         else:
-            raise CourseNotFound(status_code=404)
+            raise InternalServerError(status_code=500)
 
     
     def delete(self, course_id):
-        pass
+        existing = Course.query.filter(Course.course_id == course_id).first()
+        if existing:
+            db.session.delete(existing)
+            db.session.commit()
+            return "Successfully Deleted", 200
+        elif not existing:
+            raise NotFoundError(type="Course",status_code=404)
+        else:
+            raise InternalServerError(status_code=500)
+        
+# <===========================Handling Students related requests============================================>
+student_output_fields = {
+    "student_id": fields.Integer,
+    "first_name": fields.String,
+    "last_name": fields.String,
+    "roll_number": fields.String
+}
+
+class StudentApi(Resource):
+    @marshal_with(student_output_fields)
+    def get(self, student_id):
+        student_obj = Student.query.get(student_id)
+        if student_obj:
+            return student_obj, 200
+        elif not student_obj :
+            raise NotFoundError(type = "Student", status_code=404)
+        else:
+            raise InternalServerError(status_code=500)
+        
+    @marshal_with(student_output_fields)
+    def post(self):
+        data = request.json
+        course_code_list = Course.query.all()
+        course_codes = [i.course_code for i in course_code_list]
+        if not data["course_code"]:
+            raise EmptyCourseError(status_code=400, error_code="COURSE002", error_message="Course Code is required")
+        
+        if not data["course_name"]:
+            raise EmptyCourseError(status_code=400, error_code="COURSE001", error_message="Course Name is required")
+        
+        if data["course_code"] in course_codes:
+            raise ExistingError(status_code=409)
+        
+        if data["course_code"] not in course_codes:
+            new_course = Course(course_code = data["course_code"], course_name = data["course_name"], course_description = data["course_description"])
+            db.session.add(new_course)
+            db.session.commit()
+            return new_course, 201
+        else:
+            raise InternalServerError(status_code=500)
+
+    @marshal_with(student_output_fields)
+    def put(self, student_id):
+        data = request.json
+        existing = Student.query.filter(Student.student_id == student_id).first()
+        if not data["first_name"]:
+            raise EmptyCourseError(status_code=400, error_code="STUDENT002", error_message="First Name is required")
+        
+        if not data["roll_number"]:
+            raise EmptyCourseError(status_code=400, error_code="STUDENT001", error_message="Roll Number required")
+        if existing:
+            existing.first_name = data["first_name"]
+            existing.roll_number = data["roll_number"]
+            existing.last_name = data["last_name"]
+            db.session.commit()
+            return existing, 200
+        elif not existing:
+            raise NotFoundError(type="Student",status_code=404)
+        else:
+            raise InternalServerError(status_code=500)
+
+    
+    def delete(self, course_id):
+        existing = Course.query.filter(Course.course_id == course_id).first()
+        if existing:
+            db.session.delete(existing)
+            db.session.commit()
+            return "Successfully Deleted", 200
+        elif not existing:
+            raise NotFoundError(type="Student",status_code=404)
+        else:
+            raise InternalServerError(status_code=500)
 
 
 api.add_resource(CourseApi, "/api/course/<int:course_id>", "/api/course")
+api.add_resource(StudentApi, "/api/student/<int:student_id>", "/api/student")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
