@@ -213,11 +213,11 @@ class EnrollmentApi(Resource):
         studentexist = Student.query.filter_by(student_id = student_id).all()
         if not studentexist:
             raise EmptyError(status_code=400, error_code="ENROLLMENT002", error_message="Student does not exist")
+        if not existing:
+            return "Student is not enrolled in any course", 404
         if existing:
             enrolls = [{"enrollment_id": i.enrollment_id,"student_id": i.student_id,"course_id": i.course_id} for i in existing]
-            if enrolls:
-                return enrolls, 200
-            return "Student is not enrolled in any course", 404
+            return enrolls, 200
         else:
             raise InternalServerError(status_code=500)
 
