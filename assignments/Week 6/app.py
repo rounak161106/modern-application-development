@@ -60,9 +60,17 @@ class CourseApi(Resource):
         else:
             raise InternalServerError(status_code=500)
         
-
-    def push(self):
-        pass
+    @marshal_with(course_output_fields)
+    def post(self):
+        data = request.json
+        course_code_list = Course.query.all()
+        course_codes = [i.course_code for i in course_code_list]
+        if 
+        if data["course_code"] not in course_codes:
+            new_course = Course(course_code = data["course_code"], course_name = data["course_name"], course_description = data["course_description"])
+            db.session.add(new_course)
+            db.session.commit()
+            return new_course, 201
 
     def put(self, course_id):
         pass    
@@ -71,6 +79,6 @@ class CourseApi(Resource):
         pass
 
 
-api.add_resource(CourseApi, "/api/course/<int:course_id>")
+api.add_resource(CourseApi, "/api/course/<int:course_id>", "/api/course")
 if __name__ == "__main__":
     app.run(debug=True)
