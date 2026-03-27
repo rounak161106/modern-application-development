@@ -2,26 +2,40 @@
 from flask import Flask, request, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api, Resource, marshal_with, fields
-from flask_cors import CORS
 import json
 from werkzeug.exceptions import HTTPException    #to handle exceptions
 
+#<===============================validations================================================>
 class NotFoundError(HTTPException):
     def __init__(self, status_code, type):
-        self.response = make_response(f'{type} not found', status_code)
+        super().__init__()
+        self.code = status_code
+        self.data = f'{type} not found'
+
 class InternalServerError(HTTPException):
     def __init__(self, status_code):
-        self.response = make_response('Internal Server Error', status_code)
+        super().__init__()
+        self.code = status_code
+        self.data = 'Internal Server Error'
+
 class ExistingError(HTTPException):
     def __init__(self, status_code, type):
-        self.response = make_response(f'{type} already exist', status_code)
+        super().__init__()
+        self.code = status_code
+        self.data = f'{type} already exist'
+
 class EmptyError(HTTPException):
     def __init__(self, status_code, error_code, error_message):
+        super().__init__()
         message = {"error_code" : error_code, "error_message" : error_message}
-        self.response = make_response(json.dumps(message), status_code)
+        self.code = status_code
+        self.data = message
+
 class UniqueError(HTTPException):
     def __init__(self, status_code, type):
-        self.response = make_response(f'{type} already exist', status_code)
+        super().__init__()
+        self.code = status_code
+        self.data = f'{type} already exist'
         
 
 #<====================Configuration and setup================================================>
@@ -30,7 +44,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///api_database.sqlite3"
 app.app_context().push()
 db = SQLAlchemy(app)
 api = Api(app)
-CORS(app)
 
 #<==========================defining models for the app=======================================>
 class Course(db.Model):
@@ -75,20 +88,20 @@ class CourseApi(Resource):
         
     @marshal_with(course_output_fields)
     def post(self):
-        data = request.json
+        data = request.json or {}
         course_code_list = Course.query.all()
         course_codes = [i.course_code for i in course_code_list]
-        if not data["course_code"]:
+        if not data.get("course_code"):
             raise EmptyError(status_code=400, error_code="COURSE002", error_message="Course Code is required")
         
-        if not data["course_name"]:
+        if not data.get("course_name"):
             raise EmptyError(status_code=400, error_code="COURSE001", error_message="Course Name is required")
         
-        if data["course_code"] in course_codes:
+        if data.get("course_code") in course_codes:
             raise ExistingError(status_code=409, type="course_code")
         
-        if data["course_code"] not in course_codes:
-            new_course = Course(course_code = data["course_code"], course_name = data["course_name"], course_description = data["course_description"])
+        if data.get("course_code") not in course_codes:
+            new_course = Course(course_code = data.get("course_code"), course_name = data.get("course_name"), course_description = data.get("course_description"))
             db.session.add(new_course)
             db.session.commit()
             return new_course, 201
@@ -97,20 +110,20 @@ class CourseApi(Resource):
 
     @marshal_with(course_output_fields)
     def put(self, course_id):
-        data = request.json
+        data = request.json or {}
         existing = Course.query.filter(Course.course_id == course_id).first()
-        if not data["course_code"]:
+        if not data.get("course_code"):
             raise EmptyError(status_code=400, error_code="COURSE002", error_message="Course Code is required")
         
-        if not data["course_name"]:
+        if not data.get("course_name"):
             raise EmptyError(status_code=400, error_code="COURSE001", error_message="Course Name is required")
         if existing:
-            course_code_existing = Course.query.filter(Course.course_code == data["course_code"]).first()
-            if course_code_existing:
+            course_code_existing = Course.query.filter(Course.course_code == data.get("course_code")).first()
+            if course_code_existing and course_code_existing.course_id != course_id:
                 raise UniqueError(type="course_id", status_code=400)
-            existing.course_name = data["course_name"]
-            existing.course_code = data["course_code"]
-            existing.course_description = data["course_description"]
+            existing.course_name = data.get("course_name")
+            existing.course_code = data.get("course_code")
+            existing.course_description = data.get("course_description")
             db.session.commit()
             return existing, 200
         elif not existing:
@@ -151,20 +164,20 @@ class StudentApi(Resource):
         
     @marshal_with(student_output_fields)
     def post(self):
-        data = request.json
+        data = request.json or {}
         student_code_list = Student.query.all()
         student_codes = [i.roll_number for i in student_code_list]
-        if not data["roll_number"]:
+        if not data.get("roll_number"):
             raise EmptyError(status_code=400, error_code="STUDENT001", error_message="Roll Number required")
         
-        if not data["first_name"]:
+        if not data.get("first_name"):
             raise EmptyError(status_code=400, error_code="STUDENT002", error_message="First Name is required")
         
-        if data["roll_number"] in student_codes:
+        if data.get("roll_number") in student_codes:
             raise ExistingError(status_code=409, type="Student")
         
-        if data["roll_number"] not in student_codes:
-            new_student = Student(roll_number = data["roll_number"], first_name = data["first_name"], last_name = data["last_name"])
+        if data.get("roll_number") not in student_codes:
+            new_student = Student(roll_number = data.get("roll_number"), first_name = data.get("first_name"), last_name = data.get("last_name"))
             db.session.add(new_student)
             db.session.commit()
             return new_student, 201
@@ -173,20 +186,20 @@ class StudentApi(Resource):
 
     @marshal_with(student_output_fields)
     def put(self, student_id):
-        data = request.json
+        data = request.json or {}
         existing = Student.query.filter(Student.student_id == student_id).first()
-        if not data["first_name"]:
+        if not data.get("first_name"):
             raise EmptyError(status_code=400, error_code="STUDENT002", error_message="First Name is required")
         
-        if not data["roll_number"]:
+        if not data.get("roll_number"):
             raise EmptyError(status_code=400, error_code="STUDENT001", error_message="Roll Number required")
         if existing:
-            student_code_existing = Student.query.filter(Student.roll_number == data["roll_number"]).first()
-            if student_code_existing:
+            student_code_existing = Student.query.filter(Student.roll_number == data.get("roll_number")).first()
+            if student_code_existing and student_code_existing.student_id != student_id:
                 raise UniqueError(type="roll_number", status_code=400)
-            existing.first_name = data["first_name"]
-            existing.roll_number = data["roll_number"]
-            existing.last_name = data["last_name"]
+            existing.first_name = data.get("first_name")
+            existing.roll_number = data.get("roll_number")
+            existing.last_name = data.get("last_name")
             db.session.commit()
             return existing, 200
         elif not existing:
@@ -212,7 +225,7 @@ class EnrollmentApi(Resource):
         existing = Enrollment.query.filter_by(student_id = student_id).all()
         studentexist = Student.query.filter_by(student_id = student_id).all()
         if not studentexist:
-            raise EmptyError(status_code=400, error_code="ENROLLMENT002", error_message="Student does not exist")
+            raise EmptyError(status_code=400, error_code="ENROLLMENT002", error_message="Student does not exist.")
         if not existing:
             return "Student is not enrolled in any course", 404
         if existing:
@@ -225,15 +238,15 @@ class EnrollmentApi(Resource):
         studentexist = Student.query.filter_by(student_id = student_id).all()
         if not studentexist:
             return "Student not found", 404
-        data = request.json
-        course = Course.query.filter_by(course_id = data["course_id"]).first()
+        data = request.json or {}
+        course = Course.query.filter_by(course_id = data.get("course_id")).first() if data.get("course_id") else None
         if not course:
             raise EmptyError(status_code=400, error_code="ENROLLMENT001", error_message="Course does not exist")
         if course:
-            new = Enrollment(student_id = student_id, course_id = data["course_id"])
+            new = Enrollment(student_id = student_id, course_id = data.get("course_id"))
             db.session.add(new)
             db.session.commit()
-            return [{"enrollment_id": new.enrollment_id,"student_id": new.student_id,"course_id": new.course_id}],201
+            return [{"enrollment_id": new.enrollment_id,"student_id": new.student_id,"course_id": new.course_id}], 201
         else:
             raise InternalServerError(status_code=500)
 
@@ -241,7 +254,7 @@ class EnrollmentApi(Resource):
         stu_exist = Student.query.filter_by(student_id = student_id).first()
         course_exist = Course.query.filter_by(course_id = course_id).first()
         if not stu_exist:
-            raise EmptyError(status_code=400, error_code="ENROLLMENT002", error_message="Student does not exist")
+            raise EmptyError(status_code=400, error_code="ENROLLMENT002", error_message="Student does not exist.")
         if not course_exist:
             raise EmptyError(status_code=400, error_code="ENROLLMENT001", error_message="Course does not exist")
         enrolls = Enrollment.query.filter(Enrollment.student_id == student_id, Enrollment.course_id == course_id).first()
@@ -257,7 +270,7 @@ class EnrollmentApi(Resource):
     
 api.add_resource(CourseApi, "/api/course/<int:course_id>", "/api/course")
 api.add_resource(StudentApi, "/api/student/<int:student_id>", "/api/student")
-api.add_resource(EnrollmentApi, '/api/student/<int:student_id>/course', '/api/student/<int:student_id>/course/<int:course_id>')
+x   api.add_resource(EnrollmentApi, '/api/student/<int:student_id>/course', '/api/student/<int:student_id>/course/<int:course_id>')
 
 if __name__ == "__main__":
     app.run(debug=True)
