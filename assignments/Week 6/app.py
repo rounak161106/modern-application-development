@@ -270,7 +270,7 @@ class EnrollmentApi(Resource):
     
 api.add_resource(CourseApi, "/api/course/<int:course_id>", "/api/course")
 api.add_resource(StudentApi, "/api/student/<int:student_id>", "/api/student")
-x   api.add_resource(EnrollmentApi, '/api/student/<int:student_id>/course', '/api/student/<int:student_id>/course/<int:course_id>')
+api.add_resource(EnrollmentApi, '/api/student/<int:student_id>/course', '/api/student/<int:student_id>/course/<int:course_id>')
 
 if __name__ == "__main__":
     app.run(debug=True)
