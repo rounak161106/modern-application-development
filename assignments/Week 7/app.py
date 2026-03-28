@@ -20,13 +20,18 @@ class Course(db.Model):
     course_code = db.Column(db.String, unique = True, nullable = False)
     course_name = db.Column(db.String, nullable = False)
     course_description = db.Column(db.String)
+    students = db.relationship("Student", backref = "courses", secondary = "Enrollments")
 
 class Enrollments(db.Model):
     enrollment_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    estudent_id = db.Column(db.Integer, db.ForeignKey(Student.student_id), nullable = False)
-    ecourse_id = db.Column(db.Integer, db.ForeignKey(Course.course_id), nullable = False)
+    estudent_id = db.Column(db.Integer, db.ForeignKey("student.student_id"), nullable = False)
+    ecourse_id = db.Column(db.Integer, db.ForeignKey("course.course_id"), nullable = False)
 
 #<===========================================Controllers=========================================>
 @app.route('/')
 def home():
     return render_template("index.html")
+
+#<==========================================Running the app======================================>
+if __name__ == "__main__":
+    app.run(debug=True)
