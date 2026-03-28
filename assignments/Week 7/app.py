@@ -54,8 +54,12 @@ def update_student(student_id):
     courses = Course.query.all()
     if request.method == "GET":
         return render_template('update_student.html', student = this_student, courses = courses)
+    f_name = request.form.get("f_name")
+    l_name = request.form.get("l_name")
     selected = request.form.get('course')
     selected_course = Course.query.get(selected)
+    this_student.first_name = f_name 
+    this_student.last_name = l_name 
     this_courses = this_student.courses
     this_courses.append(selected_course)
     db.session.commit()
@@ -124,6 +128,7 @@ def course_info(course_id):
     this_course = Course.query.get(course_id)
     print(this_course)
     return render_template("course_info.html", course = this_course)
+
 #<==========================================Running the app======================================>
 if __name__ == "__main__":
     app.run(debug=True)
