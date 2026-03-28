@@ -20,7 +20,7 @@ class Course(db.Model):
     course_code = db.Column(db.String, unique = True, nullable = False)
     course_name = db.Column(db.String, nullable = False)
     course_description = db.Column(db.String)
-    students = db.relationship("Student", backref = "courses", secondary = "Enrollments")
+    students = db.relationship("Student", backref = "courses", secondary = "enrollments")
 
 class Enrollments(db.Model):
     enrollment_id = db.Column(db.Integer, primary_key = True, autoincrement = True)
@@ -30,7 +30,10 @@ class Enrollments(db.Model):
 #<===========================================Controllers=========================================>
 @app.route('/')
 def home():
-    return render_template("index.html")
+    students = Student.query.all()
+    return render_template("index.html", students = students)
+
+@app.route("/add/student")
 
 #<==========================================Running the app======================================>
 if __name__ == "__main__":
