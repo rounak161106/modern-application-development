@@ -16,16 +16,18 @@
             <th>Last Name</th>
             <th>Actions</th>
         </tr>
+        {% for student in students %}
         <tr>
-            <td>s_no_1</td>
-            <td><a href="/student/<int:student_id>">roll_number_1</a></td>
-            <td>first_name_1</td>
-            <td>last_name_1</td>
+            <td>{{ loop.index }}</td>
+            <td><a href="/student/<int:student_id>">{{ student.roll_number }}</a></td>
+            <td>{{ student.first_name }}</td>
+            <td>{{ student.last_name }}</td>
             <td>
                 <a href="/student/<int:student_id>/update">Update</a>
                 <a href="/student/<int:student_id>/delete">Delete</a>
             </td>
         </tr>
+        {% endfor %}
     </table><br>
     {% else %}
     <p>No student found. Add the students now!</p>
