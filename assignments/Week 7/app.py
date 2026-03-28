@@ -33,7 +33,17 @@ def home():
     students = Student.query.all()
     return render_template("index.html", students = students)
 
-@app.route("/add/student")
+@app.route("/add/student", methods = ["GET", "POST"])
+def addStudent():
+    if request.method == "GET":
+        return render_template('add_student.html')
+    roll = request.form.get("roll")
+    fname = request.form.get("fname")
+    lname = request.form.get("lname")
+    new_student = Student(roll_number = roll, first_name = fname, last_name = lname)
+    db.session.add(new_student)
+    db.session.commit()
+    return redirect('/')
 
 #<==========================================Running the app======================================>
 if __name__ == "__main__":
