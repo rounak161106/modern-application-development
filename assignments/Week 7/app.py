@@ -94,6 +94,20 @@ def addCourse():
     db.session.commit()
     return redirect('/courses')
 
+@app.route('/course/<int:course_id>/update', methods = ["GET", "POST"])
+def update_course(course_id):
+    this_course = Course.query.get(course_id)
+    if request.method == "GET":
+        return render_template('update_course.html', course = this_course)
+    c_name = request.form.get("c_name")
+    desc = request.form.get("desc")
+    this_course.course_name = c_name
+    this_course.course_description = desc
+    db.session.commit()
+    return redirect('/courses')
+    
+    
+
 #<==========================================Running the app======================================>
 if __name__ == "__main__":
     app.run(debug=True)
