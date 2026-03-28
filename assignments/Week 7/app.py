@@ -64,7 +64,6 @@ def delete_student(student_id):
 @app.route('/student/<int:student_id>')
 def student_info(student_id):
     this_student = Student.query.get(student_id)
-    print(this_student)
     return render_template("student_info.html", student = this_student)
 
 @app.route('/student/<int:student_id>/withdraw/<int:course_id>')
@@ -106,8 +105,18 @@ def update_course(course_id):
     db.session.commit()
     return redirect('/courses')
     
-    
+@app.route("/course/<int:course_id>/delete")
+def delete_course(course_id):
+    this_course = Course.query.get(course_id)
+    db.session.delete(this_course)
+    db.session.commit()
+    return redirect('/')
 
+@app.route('/course/<int:course_id>')
+def course_info(course_id):
+    this_course = Course.query.get(course_id)
+    print(this_course)
+    return render_template("course_info.html", course = this_course)
 #<==========================================Running the app======================================>
 if __name__ == "__main__":
     app.run(debug=True)
