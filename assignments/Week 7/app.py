@@ -68,6 +68,12 @@ def student_info(student_id):
     print(this_student)
     return render_template("student_info.html", student = this_student)
 
+@app.route('/student/<int:student_id>/withdraw/<int:course_id>')
+def update_enrollments(student_id, course_id):
+    current_enrollment = Enrollments.query.filter_by(estudent_id = student_id, ecourse_id = course_id).first()
+    db.session.delete(current_enrollment)
+    db.session.commit()
+    return redirect('/')
 
 #<==========================================Running the app======================================>
 if __name__ == "__main__":

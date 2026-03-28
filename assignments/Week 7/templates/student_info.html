@@ -42,7 +42,7 @@
                 <td>{{ course.course_code }}</td>
                 <td>{{ course.course_name }}<</td>
                 <td>{{ course.course_description }}<</td>
-                <td><a href="/student/<int:student_id>/withdraw/<int:course_id>">Withdraw</a></td>
+                <td><a href="/student/{{student.student_id>}}/withdraw/{{course.course_id}}">Withdraw</a></td>
             </tr>
             {% endfor %}
         </tbody>
