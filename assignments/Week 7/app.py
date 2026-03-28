@@ -51,8 +51,15 @@ def addStudent():
 @app.route('/student/<int:student_id>/update', methods = ["GET", "POST"])
 def update_student(student_id):
     this_student = Student.query.get(student_id)
+    courses = Course.query.all()
     if request.method == "GET":
-        return render_template('update_student.html', student = this_student)
+        return render_template('update_student.html', student = this_student, courses = courses)
+    selected = request.form.get('course')
+    selected_course = Course.query.get(selected)
+    this_courses = this_student.courses
+    this_courses.append(selected_course)
+    db.session.commit()
+    return redirect('/')
 
 @app.route("/student/<int:student_id>/delete")
 def delete_student(student_id):

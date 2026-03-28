@@ -10,25 +10,23 @@
         <div>
             <label>Roll Number:</label>
             <input type="text" name="roll" value="{{ student.roll_number }}" disabled />
-        </div>
+        </div><br>
         <div>
             <label>First Name:</label>
             <input type="text" name="f_name" value="{{ student.first_name }}" required />
-        </div>
+        </div><br>
         <div>
             <label>Last Name:</label>
             <input type="text" name="l_name" value="{{ student.last_name }}"/>
-        </div>
+        </div><br>
         <div>
             <label for="courses">Select Course: </label>
             <select name="course" id="course">
-            <option value="course_1_id">course_1_name</option>
-            <option value="course_2_id">course_2_name</option>
-            ........
-            ........
-            <option value="course_n_id">course_n_name</option>
+                {% for course in courses %}
+                    <option value="{{course.course_id}}">{{course.course_name}}</option>
+                {% endfor %}
             </select>
-        </div>
+        </div><br>
         <div>
             <input type="submit" value = "Update">
         </div>
