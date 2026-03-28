@@ -42,7 +42,7 @@ def addStudent():
     lname = request.form.get("l_name")
     existing = Student.query.filter_by(roll_number = roll).first()
     if existing:
-        return render_template('existing.html')
+        return render_template('existing.html', type = "Student", todo = "use", what = "Roll Number")
     new_student = Student(roll_number = roll, first_name = fname, last_name = lname)
     db.session.add(new_student)
     db.session.commit()
@@ -61,7 +61,6 @@ def delete_student(student_id):
     db.session.commit()
     return redirect('/')
 
-
 @app.route('/student/<int:student_id>')
 def student_info(student_id):
     this_student = Student.query.get(student_id)
@@ -74,6 +73,26 @@ def update_enrollments(student_id, course_id):
     db.session.delete(current_enrollment)
     db.session.commit()
     return redirect('/')
+
+@app.route('/courses')
+def courses():
+    courses = Course.query.all()
+    return render_template("courses.html", courses = courses)
+
+@app.route('/course/create', methods = ["GET", "POST"])
+def addCourse():
+    if request.method == "GET":
+        return render_template('add_course.html')
+    code = request.form.get("code")
+    c_name = request.form.get("c_name")
+    desc = request.form.get("desc")
+    existing = Course.query.filter_by(course_code = code).first()
+    if existing:
+        return render_template('existing.html', type = "Course", todo = "create a", what = "course")
+    new_course = Student(course_code = code, course_name = c_name, course_description = desc)
+    db.session.add(new_course)
+    db.session.commit()
+    return redirect('/courses')
 
 #<==========================================Running the app======================================>
 if __name__ == "__main__":

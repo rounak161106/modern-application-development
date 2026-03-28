@@ -6,7 +6,11 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Students list</h1>
+    <div class="header" >
+        <h1 style="display: inline-block;">Students list</h1>
+        <h1 style="display: inline-block;margin-left: 450px;"><a href="/courses">Go to courses</a></h1>
+    </div>
+    
     {% if students %}
     <table id = "all-students" border="2" cellpadding="8px">
         <tr>
