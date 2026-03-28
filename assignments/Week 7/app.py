@@ -33,13 +33,16 @@ def home():
     students = Student.query.all()
     return render_template("index.html", students = students)
 
-@app.route("/add/student", methods = ["GET", "POST"])
+@app.route("/student/create", methods = ["GET", "POST"])
 def addStudent():
     if request.method == "GET":
         return render_template('add_student.html')
     roll = request.form.get("roll")
-    fname = request.form.get("fname")
-    lname = request.form.get("lname")
+    fname = request.form.get("f_name")
+    lname = request.form.get("l_name")
+    existing = Student.query.get(roll)
+    if not existing:
+        return render_template('existing.html')
     new_student = Student(roll_number = roll, first_name = fname, last_name = lname)
     db.session.add(new_student)
     db.session.commit()
