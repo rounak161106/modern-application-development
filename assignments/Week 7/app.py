@@ -42,7 +42,7 @@ def addStudent():
     lname = request.form.get("l_name")
     existing = Student.query.filter_by(roll_number = roll).first()
     if existing:
-        return render_template('existing.html', type = "Student", todo = "use", what = "Roll Number")
+        return render_template('existing.html', type = "Student", todo = "use", what = "Roll Number", endpoint = "/")
     new_student = Student(roll_number = roll, first_name = fname, last_name = lname)
     db.session.add(new_student)
     db.session.commit()
@@ -88,8 +88,8 @@ def addCourse():
     desc = request.form.get("desc")
     existing = Course.query.filter_by(course_code = code).first()
     if existing:
-        return render_template('existing.html', type = "Course", todo = "create a", what = "course")
-    new_course = Student(course_code = code, course_name = c_name, course_description = desc)
+        return render_template('existing.html', type = "Course", todo = "create a", what = "course", endpoint = '/courses')
+    new_course = Course(course_code = code, course_name = c_name, course_description = desc)
     db.session.add(new_course)
     db.session.commit()
     return redirect('/courses')

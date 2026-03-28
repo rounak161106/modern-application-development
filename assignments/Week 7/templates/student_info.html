@@ -17,9 +17,9 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{student.roll_number}}</td>
-                <td>{{student.first_name}}</td>
-                <td>{{student.last_name}}</td>
+                <td>{{ student.roll_number }}</td>
+                <td>{{ student.first_name }}</td>
+                <td>{{ student.last_name }}</td>
             </tr>
         </tbody>
     </table>
@@ -40,9 +40,9 @@
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ course.course_code }}</td>
-                <td>{{ course.course_name }}<</td>
-                <td>{{ course.course_description }}<</td>
-                <td><a href="/student/{{student.student_id>}}/withdraw/{{course.course_id}}">Withdraw</a></td>
+                <td>{{ course.course_name }}</td>
+                <td>{{ course.course_description }}</td>
+                <td><a href="/student/{{student.student_id}}/withdraw/{{course.course_id}}">Withdraw</a></td>
             </tr>
             {% endfor %}
         </tbody>
