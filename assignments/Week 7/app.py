@@ -40,13 +40,34 @@ def addStudent():
     roll = request.form.get("roll")
     fname = request.form.get("f_name")
     lname = request.form.get("l_name")
-    existing = Student.query.get(roll)
-    if not existing:
+    existing = Student.query.filter_by(roll_number = roll).first()
+    if existing:
         return render_template('existing.html')
     new_student = Student(roll_number = roll, first_name = fname, last_name = lname)
     db.session.add(new_student)
     db.session.commit()
     return redirect('/')
+
+@app.route('/student/<int:student_id>/update', methods = ["GET", "POST"])
+def update_student(student_id):
+    this_student = Student.query.get(student_id)
+    if request.method == "GET":
+        return render_template('update_student.html', student = this_student)
+
+@app.route("/student/<int:student_id>/delete")
+def delete_student(student_id):
+    this_student = Student.query.get(student_id)
+    db.session.delete(this_student)
+    db.session.commit()
+    return redirect('/')
+
+
+@app.route('/student/<int:student_id>')
+def student_info(student_id):
+    this_student = Student.query.get(student_id)
+    print(this_student)
+    return render_template("student_info.html", student = this_student)
+
 
 #<==========================================Running the app======================================>
 if __name__ == "__main__":

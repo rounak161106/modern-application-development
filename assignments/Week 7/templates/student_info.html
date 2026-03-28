@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+</head>
+<body>
+    <h1 text-align="center">Student Details</h1>
+    <table id = 'student-detail' border="2" cellpadding="8px">
+        <thead>
+            <tr>
+                <th>Roll Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{student.roll_number}}</td>
+                <td>{{student.first_name}}</td>
+                <td>{{student.last_name}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1 text-align="center">Enrollment List</h1>
+    <table id = "student-enrollments" border="2" cellpadding="8px">
+        <thead>
+            <tr>
+                <th>SNo</th>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Course Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in student.courses %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ course.course_code }}</td>
+                <td>{{ course.course_name }}<</td>
+                <td>{{ course.course_description }}<</td>
+                <td><a href="/student/<int:student_id>/withdraw/<int:course_id>">Withdraw</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table><br>
+    <a href="/"><button>Go Back</button></a>
+</body>
+</html>
