@@ -19,9 +19,13 @@ This repository contains all my **weekly assignments**, **practice projects**, a
 The course focuses on building modern, full-stack web applications using Python, starting from static HTML pages, progressing through templating with Jinja2, building Flask web apps, integrating relational databases with SQLAlchemy, and finally designing RESTful APIs.
 
 **Student:** Rounak Prasad  
-**Roll Number:** 25f2003256  
+**Roll Number:** 25F2003256  
 **Batch:** 2026  
-**Program:** BS in Data Science and Applications, IIT Madras
+**Program:** BS in Data Science and Applications, IIT Madras (CGPA: 8.88/10)  
+**Also pursuing:** B.Tech CSE (Data Science & ML), Lovely Professional University (CGPA: 10/10)  
+**Location:** Jalandhar, Punjab, India  
+**Portfolio:** [rounak161106.github.io](https://rounak161106.github.io)  
+**Email:** rounak16112006@gmail.com
 
 ---
 
@@ -95,8 +99,8 @@ MAD-1/
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/rounak161106/MAD1.git
+cd MAD1
 
 # (Recommended) Create a virtual environment
 python -m venv venv
@@ -150,18 +154,9 @@ Beyond the graded assignments, this repo also includes self-driven practice work
 
 ---
 
-## 🚀 Future Improvements
-
-- [ ] Add front-end styling with Bootstrap or Tailwind CSS
-- [ ] Add authentication (Flask-Login / JWT)
-- [ ] Write unit tests for API endpoints
-- [ ] Deploy a live demo (Render / Railway / Heroku)
-- [ ] Extend to MAD-2 coursework
-
----
-
 ## 📬 Contact
 
 **Rounak Prasad**  
-IIT Madras BS Program | 2026 Batch  
-Roll No: `25f2003256`
+IIT Madras BS Program | 2026 Batch | Roll No: `25F2003256`  
+📧 [rounak16112006@gmail.com](mailto:rounak16112006@gmail.com)  
+🌐 [rounak161106.github.io](https://rounak161106.github.io)
