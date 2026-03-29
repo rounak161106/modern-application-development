@@ -1,0 +1,53 @@
+# ─── Python ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ─── Virtual Environments ─────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+
+# ─── Databases ────────────────────────────────────────────
+# Uncomment below to ignore all SQLite databases.
+# They are currently tracked for assignment submission convenience.
+# *.sqlite3
+# *.db
+instance/
+
+# ─── Environment Variables ────────────────────────────────
+.env
+.flaskenv
+
+# ─── Flask ────────────────────────────────────────────────
+flask_session/
+
+# ─── OS / Editor Files ────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ─── Output / Generated Files ────────────────────────────
+output.html
+graph.png
+*.log
+
+# ─── Jupyter (if used) ────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ─── Coverage / Testing ───────────────────────────────────
+.coverage
+htmlcov/
+.pytest_cache/
