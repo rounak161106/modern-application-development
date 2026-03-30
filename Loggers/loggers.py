@@ -1,7 +1,8 @@
 # This is a simple tutorial to use loggers instead of using print statement to debug our code
 
 from flask import Flask, render_template
-
+import logging
+logging.basicConfig(filename="debug.log", level=logging.DEBUG)
 app = Flask(__name__)
 @app.route("/")
 def index():
