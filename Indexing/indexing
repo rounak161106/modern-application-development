@@ -1,0 +1,9 @@
+We use index for faster searching and retrieval of data. An index is a data structure that allows us to quickly locate and access the data in a database table. It works like a book index, where you can quickly find the page number of a specific topic.
+
+To create an index in a database, we can use the following syntax:
+
+```sql
+CREATE INDEX index_name ON table_name (column_name);
+```
+
+We use explain query plan select 
