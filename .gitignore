@@ -38,12 +38,4 @@ Thumbs.db
 *.swp
 *.swo
 
-# ─── Output / Generated Files ────────────────────────────
-output.html
-graph.png
-*.log
-
-# ─── Jupyter (if used) ────────────────────────────────────
-.ipynb_checkpoints/
-*.ipynb
 
