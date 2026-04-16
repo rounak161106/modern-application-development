@@ -1,12 +1,17 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, current_user, login_user, login_required, logout_user
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///testdb.sqlite3"
-db = SQLAlchemy(app)
+db = SQLAlchemy()
+db.init_app(app)
 app.app_context().push()
 
-class User(db.Model):
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String, nullable = False, unique = True)
     password = db.Column(db.String, nullable = False)
