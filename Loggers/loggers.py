@@ -2,11 +2,11 @@
 
 from flask import Flask, render_template
 import logging
-logging.basicConfig(filename="debug.log", level=logging.DEBUG)
+logging.basicConfig(filename="debug.log", level=logging.WARNING)
 app = Flask(__name__)
 @app.route("/")
 def index():
-    app.logger.debug("Index page was accessed")
+    app.logger.warning("Index page was accessed")
     return render_template('index.html')
 
 if __name__ == "__main__":
