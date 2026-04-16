@@ -47,7 +47,3 @@ graph.png
 .ipynb_checkpoints/
 *.ipynb
 
-# ─── Coverage / Testing ───────────────────────────────────
-.coverage
-htmlcov/
-.pytest_cache/
