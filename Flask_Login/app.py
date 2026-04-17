@@ -44,10 +44,15 @@ def login():
 
 # @app.route('/dashboard/<int:id>')
 @app.route('/dashboard')
+@login_required
 def dashboard():
     user = current_user
     # user = User.query.get(id)
     return render_template("dashboard.html", user = user)
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/login')
 if __name__ == "__main__":
     app.run(debug=True)
