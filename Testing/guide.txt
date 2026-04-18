@@ -16,3 +16,9 @@
 #     - @pytest.mark.skip(skipping one particular testing function - (cuz maybe that function is not yet implemented by the developer and you only have boiler plate code, so you skip this.))
 #     - @pytest.mark.skipif(if condn satisfied skip it - maybe you want to skip a feature which doesnt work on windows if we have windows os(say))
 #     - @pytest.mark.parameterize
+
+#4.User defined markers for grouping testing units/module
+regression
+smoke
+web
+slow
