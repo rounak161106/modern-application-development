@@ -6,3 +6,8 @@ st.write(f'Hello {name}')
 #add slider to take age as input
 age = st.slider("Select your age : ",10,80,15)
 st.write(f'Your age is {age}')
+
+#add select options
+options = ["Python", "Java", "C++", "Ruby"]
+choice = st.selectbox("Select your favorite programming language : ", options)
+st.write("You selected", choice)
