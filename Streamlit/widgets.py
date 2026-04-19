@@ -1,5 +1,7 @@
 import streamlit as st
-st.title("Streamlit text input")
+import pandas as pd
+
+st.title("Streamlit Demo")
 name =  st.text_input("Enter your name : ")
 st.write(f'Hello {name}')
 
@@ -13,5 +15,6 @@ choice = st.selectbox("Select your favorite programming language : ", options)
 st.write("You selected", choice)
 
 uploaded_file = st.file_uploader("Choose a csv file ", type="csv")
-
-df = pd.rea
+if uploaded_file:
+    df = pd.read_csv(uploaded_file)
+    st.write(df)
