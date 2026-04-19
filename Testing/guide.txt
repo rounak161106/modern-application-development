@@ -6,6 +6,7 @@
 #2.pytest running
 # pytest test_intro.py
 # pytest .
+# pytest
 # pytest test_intro.py -v (Verbose)
 # pytest -k "increment"   (k for keyword)
 # pytest test_intro.py::test_increment     (Note that test_idtro is file name, increment and test_increment is function name)
@@ -22,3 +23,7 @@ regression
 smoke
 web
 slow
+
+A fixture is just:
+
+a function that sets things up before a test runs
