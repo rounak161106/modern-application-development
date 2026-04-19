@@ -11,3 +11,7 @@ st.write(f'Your age is {age}')
 options = ["Python", "Java", "C++", "Ruby"]
 choice = st.selectbox("Select your favorite programming language : ", options)
 st.write("You selected", choice)
+
+uploaded_file = st.file_uploader("Choose a csv file ", type="csv")
+
+df = pd.rea

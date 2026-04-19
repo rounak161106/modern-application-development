@@ -11,7 +11,7 @@ df = pd.DataFrame({
     "Name" : ["Rounak", "Tanya", "Jay"], 
     "Age" : [18,19,15]
 })
-
+df.to_csv("data.csv")
 st.write(df)
 
 # ================================================================
