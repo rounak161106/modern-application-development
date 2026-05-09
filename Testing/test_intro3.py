@@ -1,5 +1,5 @@
 class TestExample:
-    def compute(self,x,op): #note selected by pytest
+    def compute(self,x,op): #not selected by pytest
         if op=="+":
             return x+1
         elif op=="-":

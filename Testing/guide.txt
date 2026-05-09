@@ -17,6 +17,8 @@
 #     - @pytest.mark.skip(skipping one particular testing function - (cuz maybe that function is not yet implemented by the developer and you only have boiler plate code, so you skip this.))
 #     - @pytest.mark.skipif(if condn satisfied skip it - maybe you want to skip a feature which doesnt work on windows if we have windows os(say))
 #     - @pytest.mark.parameterize
+#     - @pytest.mark.hello(user defined marker, tests all the functions having this decorator and we run using pytest -m hello(same as keyword))
+#     - @pytest.mark.xfail(will run the test but will not mark as pass or fail)
 
 #4.User defined markers for grouping testing units/module
 regression
