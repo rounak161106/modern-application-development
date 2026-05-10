@@ -1,162 +1,157 @@
-# 📚 MAD-1 — Modern Application Development I
+# 🚀 Modern Application Development I (MAD-1)
 
-> **IIT Madras BS in Data Science and Applications**  
-> Course: `Modern Application Development – I (MAD1)` | Diploma Level – Programming
+> **My complete learning journey** through the MAD-1 course at IIT Madras BS in Data Science program — from static HTML to full-stack MVC web applications.
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-3.x-black?logo=flask)
-![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-red)
-![SQLite](https://img.shields.io/badge/SQLite-Database-lightblue?logo=sqlite)
-![Jinja2](https://img.shields.io/badge/Jinja2-Templates-green)
-![License](https://img.shields.io/badge/License-Academic-lightgrey)
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+![Flask](https://img.shields.io/badge/Flask-3.x-green?logo=flask)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-orange)
+![SQLite](https://img.shields.io/badge/SQLite-3-lightgrey?logo=sqlite)
+![Jinja2](https://img.shields.io/badge/Jinja2-Templating-red)
+![License](https://img.shields.io/badge/License-Educational-yellow)
 
 ---
 
 ## 📌 About This Repository
 
-This repository contains all my **weekly assignments**, **practice projects**, and **learning demos** for the **Modern Application Development – I (MAD-1)** course, part of the [IIT Madras BS in Data Science and Applications](https://study.iitm.ac.in/ds/) program.
+This repository documents **~12 weeks of learning** web development as part of the MAD-1 course (Jan–May 2026). It contains:
 
-The course focuses on building modern, full-stack web applications using Python, starting from static HTML pages, progressing through templating with Jinja2, building Flask web apps, integrating relational databases with SQLAlchemy, and finally designing RESTful APIs.
+- **6 graded assignments** — from static HTML to a full MVC Flask app
+- **11 practice experiments** — self-driven explorations to reinforce concepts
+- **4 tutorial code-alongs** — exercises from live course sessions
+- **Comprehensive documentation** — every file is commented and explained
 
-**Student:** Rounak Prasad  
-**Roll Number:** 25F2003256  
-**Batch:** 2026  
-**Program:** BS in Data Science and Applications, IIT Madras (CGPA: 8.88/10)  
-**Also pursuing:** B.Tech CSE (Data Science & ML), Lovely Professional University (CGPA: 10/10)  
-**Location:** Jalandhar, Punjab, India  
-**Portfolio:** [rounak161106.github.io](https://rounak161106.github.io)  
-**Email:** rounak16112006@gmail.com
+> **I am a student in my learning phase.** This repository is an authentic record of my growth as a developer — including the experiments, the mistakes, and the incremental improvements.
 
 ---
 
-## 🗂️ Repository Structure
+## 🗺️ New Here? Start with the [Learning Path →](./LEARNING_PATH.md)
+
+The `LEARNING_PATH.md` guides you through the repository in the order I learned each topic, with links to every folder and explanations of what each one teaches.
+
+---
+
+## 📁 Repository Structure
 
 ```
 MAD-1/
+├── assignments/                          ← Graded coursework (organized by week)
+│   ├── week-2-html-fundamentals/         Static HTML portfolio website
+│   ├── week-3-jinja2-templating/         CLI app with Jinja2 + Matplotlib
+│   ├── week-4-flask-basics/              Flask web app with forms and charts
+│   ├── week-5-flask-sqlalchemy/          CRUD app with SQLAlchemy ORM
+│   ├── week-6-rest-api/                  RESTful API with Flask-RESTful
+│   └── week-7-full-mvc-app/              Complete MVC student-course manager
 │
-├── Assignments/
-│   ├── Week 2/          → Static HTML personal portfolio pages
-│   ├── Week 3/          → CLI app using Jinja2 templates + Matplotlib
-│   ├── Week 4/          → Flask web app with CSV data & chart generation
-│   ├── Week 5/          → Flask + SQLAlchemy CRUD (Student & Course management)
-│   ├── Week 6/          → RESTful API with Flask-RESTful
-│   └── Week 7/          → Full Flask MVC app (Students, Courses, Enrollments)
+├── practice/                             ← Self-driven experiments & explorations
+│   ├── 01-jinja2-standalone/             Jinja2 without Flask
+│   ├── 02-flask-routing/                 Flask routing & form experiments
+│   ├── 03-sqlalchemy-without-flask/      Raw SQLAlchemy ORM (no Flask)
+│   ├── 04-flask-sqlalchemy/              Author-Article M2M practice
+│   ├── 05-flask-sqlalchemy-project/      User-Role management with model separation
+│   ├── 06-api-intro/                     REST API basics (in-memory → database)
+│   ├── 07-javascript-basics/             DOM manipulation & calculator
+│   ├── 08-logging/                       Python logging module
+│   ├── 09-psycopg2-postgresql/           PostgreSQL connections (beyond syllabus)
+│   ├── 10-flask-login/                   User authentication system
+│   └── 11-testing-pytest/                Pytest testing framework
 │
-├── Tutorials/           → Code written along with course tutorials
-│   └── Flask_Sqlalchemy/
+├── tutorials/                            ← Code from live course sessions
+│   ├── flask-sqlalchemy/                 One-to-Many vs Many-to-Many models
+│   ├── flask-restful-instructor/         Instructor-led Flask-RESTful demo
+│   ├── flask-restful-practice/           RESTful API with error handling
+│   └── sessions-and-cookies/             Flask session management
 │
-├── Flask_demo/          → Minimal Flask "Hello World" style demo
-├── Flask_sqlalchemy/    → One-to-Many & Many-to-Many ORM practice
-├── Flask_SQLAlchemy_Project/ → Many-to-Many project with Roles & Users
-├── Jinja_demo/          → Standalone Jinja2 dynamic table generation
-├── SQLAlchemy_demo/     → Raw SQLAlchemy (without Flask) demo
-├── API/                 → Introductory REST API concepts
-│
-├── requirements.txt     → Python dependencies
-├── .gitignore           → Ignored files (caches, DBs, etc.)
-└── README.md            → You are here
+├── LEARNING_PATH.md                      ← 🗺️ Start here! Guided reading order
+├── requirements.txt                      Python dependencies
+└── .gitignore                            Git exclusions
 ```
 
 ---
 
-## 📅 Assignment Breakdown
+## 🛠️ Tech Stack
 
-| Week | Topic | Key Technologies | Description |
-|------|-------|-----------------|-------------|
-| [Week 2](./Assignments/Week%202/README.md) | HTML Fundamentals | HTML5 | Static personal portfolio with navigation across 5 pages |
-| [Week 3](./Assignments/Week%203/README.md) | Jinja2 Templating | Python, Jinja2, Matplotlib, CSV | CLI app that renders student/course data as HTML from command-line args |
-| [Week 4](./Assignments/Week%204/README.md) | Flask Basics | Flask, HTML Forms, Matplotlib | Web form to query student/course marks with histogram charts |
-| [Week 5](./Assignments/Week%205/README.md) | Flask + ORM | Flask, Flask-SQLAlchemy, SQLite | Full CRUD web app for managing students and course enrollments |
-| [Week 6](./Assignments/Week%206/README.md) | REST API | Flask-RESTful, SQLAlchemy | RESTful API for Students, Courses, and Enrollments with proper HTTP methods and error handling |
-| [Week 7](./Assignments/Week%207/README.md) | Full MVC App | Flask, SQLAlchemy, Jinja2 | Complete student–course management system with UI for all CRUD operations |
-
----
-
-## 🛠️ Technologies Used
-
-| Category | Tools / Libraries |
-|----------|------------------|
+| Category | Technologies |
+|----------|-------------|
 | **Language** | Python 3.11 |
-| **Web Framework** | Flask |
-| **ORM** | Flask-SQLAlchemy, SQLAlchemy |
-| **REST API** | Flask-RESTful |
-| **Database** | SQLite3 |
+| **Web Framework** | Flask 3.x |
+| **ORM** | SQLAlchemy, Flask-SQLAlchemy |
+| **Database** | SQLite (primary), PostgreSQL (explored) |
+| **API** | Flask-RESTful |
 | **Templating** | Jinja2 |
-| **Data Visualization** | Matplotlib |
-| **Frontend** | HTML5, CSS3 |
-| **Data** | CSV (pandas-free raw parsing) |
+| **Auth** | Flask-Login |
+| **Testing** | Pytest |
+| **Visualization** | Matplotlib |
+| **Frontend** | HTML5, JavaScript, Bootstrap 5 |
+| **VCS** | Git |
 
 ---
 
-## ⚙️ Getting Started
+## 📈 Learning Progression
 
-### Prerequisites
+```
+Feb 26   ████░░░░░░░░░░░░  Week 2: Static HTML
+Feb 27   ██████░░░░░░░░░░  Week 3: Jinja2 + CLI tools
+Mar 08   ████████░░░░░░░░  Week 4: Flask web apps
+Mar 20   ██████████░░░░░░  Week 5: Database + ORM
+Mar 26   ████████████░░░░  Week 6: REST APIs
+Mar 28   ██████████████░░  Week 7: Full MVC app
+Apr-May  ████████████████  Extras: Auth, Testing, PostgreSQL, JS
+```
 
-- Python 3.10 or above
-- pip
+---
 
-### Installation
+## ⚙️ Setup & Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/rounak161106/MAD1.git
-cd MAD1
+git clone https://github.com/rounak161106/modern-application-development.git
+cd modern-application-development
 
-# (Recommended) Create a virtual environment
+# Create a virtual environment
 python -m venv venv
-source venv/bin/activate      # On Windows: venv\Scripts\activate
+source venv/bin/activate        # Linux/Mac
+venv\Scripts\activate           # Windows
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-### Running an Assignment
+---
 
-Navigate to the specific week's folder and follow its `README.md`. For example, to run the Week 5 Flask app:
+## 📝 Requirements
 
-```bash
-cd "Assignments/Week 5"
-python app.py
+The [`requirements.txt`](./requirements.txt) covers all dependencies:
+
+```
+flask
+flask-sqlalchemy
+flask-restful
+flask-login
+jinja2
+matplotlib
+psycopg2-binary
+pytest
+requests
 ```
 
-Then open your browser at `http://localhost:5000`.
+---
+
+## 👤 About Me
+
+| Field | Details |
+|-------|---------|
+| **Name** | Rounak Prasad |
+| **Program** | BS in Data Science, IIT Madras |
+| **Roll Number** | 25F2003256 |
+| **Batch** | 2026 |
+| **Course** | Modern Application Development I (MAD-1) |
 
 ---
 
-## 🎓 About the Course
+## 📄 License
 
-The **MAD-1** course is part of the Diploma in Programming track of the IIT Madras online degree program. It covers the complete lifecycle of building a web application:
-
-- Designing multi-page static websites with HTML/CSS
-- Dynamic HTML generation using Jinja2 templating
-- Building web servers with Flask (routing, forms, request handling)
-- Database design and ORM-based CRUD using SQLAlchemy
-- REST API design following HTTP conventions (GET, POST, PUT, DELETE)
-- Error handling, validation, and response structuring
-
-The program is unique in its online-first delivery combined with in-person proctored exams, making it accessible to learners across India and globally.
+This repository is for **educational purposes only**. It represents coursework completed as part of the IIT Madras BS in Data Science program.
 
 ---
 
-## 📂 Practice & Demos
-
-Beyond the graded assignments, this repo also includes self-driven practice work:
-
-| Folder | Description |
-|--------|-------------|
-| `Flask_demo/` | Minimal Flask routing and template rendering |
-| `Jinja_demo/` | Standalone Jinja2 HTML generation from Python data |
-| `SQLAlchemy_demo/` | Direct SQLAlchemy queries without Flask |
-| `Flask_sqlalchemy/` | One-to-Many and Many-to-Many ORM relationships |
-| `Flask_SQLAlchemy_Project/` | Role-based user management with Many-to-Many relationships |
-| `API/` | Introductory REST API – basic routes, JSON responses, POST with `curl`/Postman |
-| `Tutorials/` | Code written live during course tutorial sessions |
-
----
-
-## 📬 Contact
-
-**Rounak Prasad**  
-IIT Madras BS Program | 2026 Batch | Roll No: `25F2003256`  
-📧 [rounak16112006@gmail.com](mailto:rounak16112006@gmail.com)  
-🌐 [rounak161106.github.io](https://rounak161106.github.io)
+> *Built with ❤️ during 12 weeks of learning web development at IIT Madras.*
