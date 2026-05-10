@@ -17,8 +17,8 @@ env/
 .env/
 
 # ─── Databases ────────────────────────────────────────────
-# Uncomment below to ignore all SQLite databases.
-# They are currently tracked for assignment submission convenience.
+# SQLite databases are tracked for assignment submission convenience.
+# Uncomment below to ignore them if needed.
 # *.sqlite3
 # *.db
 instance/
@@ -30,6 +30,12 @@ instance/
 # ─── Flask ────────────────────────────────────────────────
 flask_session/
 
+# ─── Testing ─────────────────────────────────────────────
+.pytest_cache/
+
+# ─── Generated Files ─────────────────────────────────────
+*.log
+
 # ─── OS / Editor Files ────────────────────────────────────
 .DS_Store
 Thumbs.db
@@ -37,5 +43,3 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
-
-
