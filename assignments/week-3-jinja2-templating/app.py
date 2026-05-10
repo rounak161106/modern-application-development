@@ -1,10 +1,42 @@
+"""
+app.py — Week 3 Assignment: Jinja2 Templating & CLI Data Renderer
+==================================================================
+Course: Modern Application Development I (MAD-1), IIT Madras BS Program
+
+This is a command-line Python application that:
+1. Accepts a flag (-s for student, -c for course) and an ID via sys.argv
+2. Reads student marks data from a CSV file
+3. Dynamically generates an HTML report using Jinja2 templating
+4. For course queries, also generates a histogram chart using Matplotlib
+
+Usage:
+    python app.py -s 1001    → Generates HTML report for student 1001
+    python app.py -c 2001    → Generates HTML report + histogram for course 2001
+
+Key concepts learned:
+    - Command-line argument parsing with sys.argv
+    - CSV file reading and manual parsing
+    - Jinja2 Template class for rendering dynamic HTML
+    - Jinja2 namespace() for mutable variables inside loops
+    - Matplotlib histogram generation (non-GUI mode with 'Agg' backend)
+    - Writing generated HTML to a file from Python
+"""
+
+# ──────────────────────────────────────────────────────────
+# Imports
+# ──────────────────────────────────────────────────────────
 from jinja2 import Template
 import sys
 import csv
 import matplotlib
-matplotlib.use('Agg')
+matplotlib.use('Agg')       # Use non-interactive backend (no GUI window needed)
 import matplotlib.pyplot as plt
 
+# ──────────────────────────────────────────────────────────
+# Parse Command-Line Arguments
+# ──────────────────────────────────────────────────────────
+# sys.argv[1] = flag (-s for student, -c for course)
+# sys.argv[2] = the ID value to look up
 invalid="not invalid"
 student_id="none"
 course_id="none"
@@ -15,30 +47,62 @@ elif arg1 == "-c":
     course_id = sys.argv[2]
 else:
     invalid = "invalid"
+
+# ──────────────────────────────────────────────────────────
+# Read and Parse CSV Data
+# ──────────────────────────────────────────────────────────
+# The CSV has columns: Student id, Course id, Marks
+# We read the file twice:
+#   1. Manual parsing with f.read() to get raw data as lists
+#   2. csv.DictReader for dictionary-based access
+# This was a learning exercise — in practice, one method is sufficient.
 marks=[]
 courses=[]
 students=[]
 with open("data.csv", "r") as f:
+    # First read: manual parsing to get header and data as nested lists
     cntinstr = f.read()
     content = cntinstr.split("\n")
     header=content[0].split(", ")
     data=[[col.strip() for col in x.split(", ")] for x in content[1:] if x.strip()]
+    
+    # Second read: using csv.DictReader for structured access
+    # f.seek(0) resets file pointer to beginning after the first read
     reader = csv.DictReader(f)
     f.seek(0)
     for row in reader:
         courses.append(row[" Course id"].strip())
         students.append(row["Student id"].strip())
+        # Collect marks for the requested course (used for histogram)
         if row[" Course id"].strip()==course_id:
             marks.append(int(row[" Marks"].strip()))
 
+# ──────────────────────────────────────────────────────────
+# Generate Histogram (for course queries only)
+# ──────────────────────────────────────────────────────────
+# If a valid course ID was provided, create a marks distribution histogram
 if arg1=="-c" and course_id in courses:
     plt.hist(marks, bins=10)
     plt.xlabel("Marks")
     plt.ylabel("Frequency")
     plt.title("Distribution of Marks")
-    plt.savefig("graph.png")
-    plt.close()
+    plt.savefig("graph.png")     # Save chart as an image file
+    plt.close()                  # Close the figure to free memory
 
+# ──────────────────────────────────────────────────────────
+# Jinja2 HTML Template (embedded as a Python string)
+# ──────────────────────────────────────────────────────────
+# This template handles three cases:
+#   1. Valid student ID → shows a table of courses and marks with total
+#   2. Valid course ID → shows average/max marks and the histogram image
+#   3. Invalid input → shows an error message
+#
+# Key Jinja2 features used:
+#   - {% set ns = namespace(total=0) %} → mutable variable inside a for loop
+#     (regular Jinja2 variables are scoped and can't be modified inside loops)
+#   - {{ value|int }} → Jinja2 filter to convert string to integer
+#   - {% if %}, {% elif %}, {% else %} → conditional rendering
+#   - {% for %} → looping over data
 TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -95,9 +159,13 @@ TEMPLATE = """
 </html>
 """
 
-
+# ──────────────────────────────────────────────────────────
+# Render Template and Write Output
+# ──────────────────────────────────────────────────────────
+# Pass all variables to the Jinja2 template for rendering
 template = Template(TEMPLATE)
 cnt=template.render(invalid=invalid, arg1=arg1, student_id=student_id, cntinstr=cntinstr, course_id=course_id, students=students, courses=courses, header=header, data=data)
 
+# Write the rendered HTML to output.html
 with open("output.html", "w") as f:
     f.write(cnt)
