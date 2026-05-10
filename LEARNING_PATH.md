@@ -115,31 +115,31 @@ What you'll learn:
 
 ---
 
-## Bonus: Beyond the Syllabus 🚀
+## Phase 7: Later Course Weeks (Weeks 8–12)
 
-These topics were explored **out of personal curiosity** — not part of the graded coursework.
+The course continued after Week 7, but the later weeks **did not have graded assignments**. These topics were still part of the coursework — I practiced them through hands-on exercises.
 
-| Topic | Folder | Why I Explored It |
-|-------|--------|-------------------|
-| JavaScript & DOM | [`practice/07-javascript-basics/`](./practice/07-javascript-basics/) | Wanted to understand the frontend side |
-| Python Logging | [`practice/08-logging/`](./practice/08-logging/) | Better debugging than `print()` |
-| PostgreSQL (psycopg2) | [`practice/09-psycopg2-postgresql/`](./practice/09-psycopg2-postgresql/) | Real-world databases beyond SQLite |
-| Sessions & Cookies | [`tutorials/sessions-and-cookies/`](./tutorials/sessions-and-cookies/) | How auth works at a lower level |
-| Flask-Login Auth | [`practice/10-flask-login/`](./practice/10-flask-login/) | User authentication system |
-| Testing (Pytest) | [`practice/11-testing-pytest/`](./practice/11-testing-pytest/) | Writing automated tests |
+| Topic | Folder | What Was Covered |
+|-------|--------|------------------|
+| JavaScript & DOM | [`practice/07-javascript-basics/`](./practice/07-javascript-basics/) | Frontend fundamentals, DOM manipulation |
+| Python Logging | [`practice/08-logging/`](./practice/08-logging/) | Using `logging` module instead of `print()` |
+| PostgreSQL (psycopg2) | [`practice/09-psycopg2-postgresql/`](./practice/09-psycopg2-postgresql/) | Direct database connections with PostgreSQL |
+| Sessions & Cookies | [`tutorials/sessions-and-cookies/`](./tutorials/sessions-and-cookies/) | Flask session management |
+| Flask-Login Auth | [`practice/10-flask-login/`](./practice/10-flask-login/) | User authentication and access control |
+| Testing (Pytest) | [`practice/11-testing-pytest/`](./practice/11-testing-pytest/) | Unit testing and API testing |
 
 ---
 
 ## 📊 Skills Progression
 
 ```
-Week 2:  HTML ████░░░░░░░░░░░░  Static pages
-Week 3:  +Jinja2 ██████░░░░░░░░  Dynamic content generation
-Week 4:  +Flask ████████░░░░░░  Web server + forms
-Week 5:  +SQLAlchemy ██████████░░  Database integration + CRUD
-Week 6:  +REST API ████████████░  Backend API development
-Week 7:  +MVC █████████████  Full-stack web application
-Bonus:   +Auth +Testing ██████████████  Production-ready skills
+Week 2:     HTML ████░░░░░░░░░░░░  Static pages
+Week 3:     +Jinja2 ██████░░░░░░░░  Dynamic content generation
+Week 4:     +Flask ████████░░░░░░  Web server + forms
+Week 5:     +SQLAlchemy ██████████░░  Database integration + CRUD
+Week 6:     +REST API ████████████░  Backend API development
+Week 7:     +MVC █████████████  Full-stack web application
+Weeks 8-12: +Auth +Testing ██████████████  Auth, testing, PostgreSQL, logging
 ```
 
 ---

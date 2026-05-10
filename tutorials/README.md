@@ -16,7 +16,7 @@
 ## 🔑 Key Difference from Practice
 
 These tutorials were **structured, instructor-led sessions** — different from
-the self-driven experiments in the `practice/` folder. They follow the course
+the hands-on practice exercises in the `practice/` folder. They follow the course
 curriculum closely and served as the foundation for the graded assignments.
 
 ## 📌 Notable Learnings

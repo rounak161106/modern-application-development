@@ -1,7 +1,7 @@
 """
 intro.py — Psycopg2: Connecting to PostgreSQL from Python
 ==========================================================
-Practice: Working with PostgreSQL directly (beyond SQLite)
+Practice: Working with PostgreSQL directly using psycopg2
 
 This was my exploration of connecting to a real PostgreSQL database
 from Python using the psycopg2 library. Unlike SQLite (which is file-based),
@@ -15,8 +15,9 @@ The workflow for psycopg2 is:
     5. Close the cursor
     6. Close the connection
 
-This was beyond the course syllabus — I explored it out of curiosity
-to understand how real-world database connections work.
+This was part of the later weeks of the MAD-1 course (Weeks 8-12)
+which covered database concepts beyond SQLite, though these weeks
+did not have graded assignments.
 
 Note: Database credentials are hardcoded here for learning purposes.
       In production, always use environment variables!

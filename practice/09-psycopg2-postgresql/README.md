@@ -1,10 +1,10 @@
 # 09 — Psycopg2: PostgreSQL from Python
 
-> **Topic**: Connecting to PostgreSQL directly — beyond the course syllabus 🚀
+> **Topic**: Connecting to PostgreSQL directly from Python
 
 ## What This Demonstrates
 
-This was my **self-driven exploration** into working with a production-grade
+This covers working with a production-grade
 database (PostgreSQL) directly from Python, using the `psycopg2` library.
 The course used SQLite, but I wanted to understand how real-world databases work.
 

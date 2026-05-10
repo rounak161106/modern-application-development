@@ -16,7 +16,7 @@
 This repository documents **~12 weeks of learning** web development as part of the MAD-1 course (Jan–May 2026). It contains:
 
 - **6 graded assignments** — from static HTML to a full MVC Flask app
-- **11 practice experiments** — self-driven explorations to reinforce concepts
+- **11 practice experiments** — hands-on exercises to reinforce course concepts
 - **4 tutorial code-alongs** — exercises from live course sessions
 - **Comprehensive documentation** — every file is commented and explained
 
@@ -42,7 +42,7 @@ MAD-1/
 │   ├── week-6-rest-api/                  RESTful API with Flask-RESTful
 │   └── week-7-full-mvc-app/              Complete MVC student-course manager
 │
-├── practice/                             ← Self-driven experiments & explorations
+├── practice/                             ← Hands-on experiments & explorations
 │   ├── 01-jinja2-standalone/             Jinja2 without Flask
 │   ├── 02-flask-routing/                 Flask routing & form experiments
 │   ├── 03-sqlalchemy-without-flask/      Raw SQLAlchemy ORM (no Flask)
@@ -51,7 +51,7 @@ MAD-1/
 │   ├── 06-api-intro/                     REST API basics (in-memory → database)
 │   ├── 07-javascript-basics/             DOM manipulation & calculator
 │   ├── 08-logging/                       Python logging module
-│   ├── 09-psycopg2-postgresql/           PostgreSQL connections (beyond syllabus)
+│   ├── 09-psycopg2-postgresql/           PostgreSQL connections (later course weeks)
 │   ├── 10-flask-login/                   User authentication system
 │   └── 11-testing-pytest/                Pytest testing framework
 │
@@ -95,7 +95,7 @@ Mar 08   ████████░░░░░░░░  Week 4: Flask web app
 Mar 20   ██████████░░░░░░  Week 5: Database + ORM
 Mar 26   ████████████░░░░  Week 6: REST APIs
 Mar 28   ██████████████░░  Week 7: Full MVC app
-Apr-May  ████████████████  Extras: Auth, Testing, PostgreSQL, JS
+Apr-May  ████████████████  Weeks 8-12: Auth, Testing, PostgreSQL, Logging
 ```
 
 ---
