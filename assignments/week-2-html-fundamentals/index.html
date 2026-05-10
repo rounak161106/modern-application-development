@@ -1,4 +1,23 @@
 <!DOCTYPE html>
+<!--
+  index.html — Home Page
+  =======================
+  Week 2 Assignment: Static HTML Portfolio
+  Course: Modern Application Development I (MAD-1), IIT Madras BS Program
+
+  This is the landing page of a multi-page static portfolio website.
+  It demonstrates basic HTML5 document structure, navigation using
+  anchor tags, and content layout using div blocks.
+
+  Learning concepts:
+  - HTML5 document structure (<!DOCTYPE>, <html>, <head>, <body>)
+  - Navigation bar using <a> tags for inter-page linking
+  - Content sections using <div> with class-based grouping
+  - Paragraphs and headings for structured content
+
+  Navigation: This page links to academics.html, personal.html,
+              contact.html, and resume.html
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +25,7 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- Navigation bar — links to all other pages in the portfolio -->
     <div class="header">
         <a href="academics.html">Academics </a>|
         <a href="personal.html"> Personal </a>|
@@ -13,6 +33,7 @@
         <a href="resume.html"> Resume </a>
     </div>
     
+    <!-- Main content area — student introduction and basic info -->
     <div class="main">
         <h1>Student data</h1>
         <p>Name : Rounak Prasad</p>
@@ -20,6 +41,7 @@
         <p>Self Intro : My name is Rounak Prasad. I am an aspiring data scientist and machine learning enthusiast and currently pursuing a dual degree in these field in order to be perfect in this. I love to explore and learn new things.</p>
     </div>
 
+    <!-- Footer — common across all pages with student info and copyright -->
     <div class="footer">
         <h5>Rounak Prasad | 2026 batch | copyright, 2026</h5>
     </div>

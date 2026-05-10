@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+<!--
+  personal.html — Personal Details Page
+  ======================================
+  Week 2 Assignment: Static HTML Portfolio
+
+  This page demonstrates embedding images and external hyperlinks.
+  Images are loaded from local files using the <img> tag, and an
+  external link points to the IIT Madras online degree website.
+
+  Learning concepts:
+  - Embedding images with <img> (src, alt, height, width attributes)
+  - External hyperlinks using <a href="http://...">
+  - Line breaks with <br> for spacing
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +20,7 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- Navigation bar — consistent across all pages -->
     <div class="header">
         <a href="index.html"> Home </a>|
         <a href="academics.html">Academics </a>|
@@ -13,12 +28,15 @@
         <a href="resume.html"> Resume </a>
     </div>
     
+    <!-- Main content — personal images and external link -->
     <div class="main">
         <h1>Personal</h1>
+        <!-- Two images displayed side by side with fixed dimensions -->
         <img src="Image1.png" alt="Image1" height="250px" width="250px">
         <img src="Image2.png" alt="Image2" height="250px" width="250px">
         <br><br>
 
+        <!-- External link to the IIT Madras online degree program website -->
         <a href="http://www.onlinedegree.iitm.ac.in">Click here to view online degree Webpage</a>
     </div>
 

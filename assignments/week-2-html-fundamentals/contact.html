@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+<!--
+  contact.html — Contact Information Page
+  ========================================
+  Week 2 Assignment: Static HTML Portfolio
+
+  This page demonstrates the use of the <address> HTML element
+  for displaying contact information. The <address> tag is a
+  semantic HTML element specifically designed for contact details.
+
+  Learning concepts:
+  - The <address> semantic HTML element
+  - Line breaks <br> for formatting address blocks
+  - Consistent page layout using header/main/footer divs
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +20,7 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- Navigation bar -->
     <div class="header">
         <a href="index.html"> Home </a>|
         <a href="academics.html">Academics </a>|
@@ -13,8 +28,11 @@
         <a href="resume.html"> Resume </a>
     </div>
     
+    <!-- Main content — contact details using the semantic <address> element -->
     <div class="main">
         <h1>Contact Us:</h1>
+        <!-- The <address> tag renders in italic by default and is semantically
+             meaningful — it tells browsers/search engines this is contact info -->
         <address>
             Boys Hostel 3,<br>Lovely Professional University, Punjab - 144411 <br><br>
             7008961001 (Mon-Fri 9am-6pm) <br>

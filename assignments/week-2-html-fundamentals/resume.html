@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+<!--
+  resume.html — Resume / CV Page
+  ===============================
+  Week 2 Assignment: Static HTML Portfolio
+
+  This page demonstrates linking to a downloadable file (PDF).
+  When a user clicks the link, the browser will either display
+  the PDF inline or prompt a download, depending on browser settings.
+
+  Learning concepts:
+  - Linking to local files (PDF) using <a href="filename.pdf">
+  - File downloads via anchor tags
+  - Minimal page layout for single-purpose pages
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +20,7 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- Navigation bar -->
     <div class="header">
         <a href="index.html"> Home </a>|
         <a href="academics.html">Academics </a>|
@@ -13,8 +28,10 @@
         <a href="contact.html"> Contact </a>
     </div>
     
+    <!-- Main content — link to downloadable PDF resume -->
     <div class="main">
         <h1>Resume</h1>
+        <!-- This link points to a local PDF file in the same directory -->
         <a href="resume.pdf">Download Resume</a>
     </div>
 

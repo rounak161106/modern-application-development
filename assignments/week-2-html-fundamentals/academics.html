@@ -1,4 +1,19 @@
 <!DOCTYPE html>
+<!--
+  academics.html — Academic Mark Sheet Page
+  ==========================================
+  Week 2 Assignment: Static HTML Portfolio
+
+  This page demonstrates HTML table structure for displaying
+  structured tabular data (academic marks). It uses <table>,
+  <tr>, <th>, and <td> elements to present a student's mark sheet.
+
+  Learning concepts:
+  - HTML tables (<table>, <tr>, <th>, <td>)
+  - Table headers vs table data cells
+  - The border attribute for quick table styling
+  - Navigation consistency across pages (same nav bar pattern)
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +21,7 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- Navigation bar — note: current page (Academics) is excluded, replaced with Home link -->
     <div class="header">
         <a href="index.html">Home </a>|
         <a href="personal.html"> Personal </a>|
@@ -13,13 +29,17 @@
         <a href="resume.html"> Resume </a>
     </div>
     
+    <!-- Main content — mark sheet displayed as an HTML table -->
     <div class="main">
         <h1>Mark Sheet</h1>
+        <!-- The border="1" attribute adds a simple border around table cells -->
         <table border="1">
+            <!-- Table header row defining column names -->
             <tr>
                 <th>Subject</th>
                 <th>Marks</th>
             </tr>
+            <!-- Individual subject rows with marks -->
             <tr>
                 <td>English</td>
                 <td>88</td>
@@ -40,6 +60,7 @@
                 <td>Humanities</td>
                 <td>77</td>
             </tr>
+            <!-- Total marks row at the bottom of the table -->
             <tr>
                 <td>Total</td>
                 <td>408</td>
