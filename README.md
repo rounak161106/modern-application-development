@@ -154,4 +154,4 @@ This repository is for **educational purposes only**. It represents coursework c
 
 ---
 
-> *Built with ❤️ during 12 weeks of learning web development at IIT Madras.*
+> *Built with ❤️ during 12 weeks of learning web development.*
